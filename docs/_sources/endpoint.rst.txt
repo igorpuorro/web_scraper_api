@@ -1,0 +1,25 @@
+endpoint package
+================
+
+Submodules
+----------
+
+endpoint.keyword\_endpoints module
+----------------------------------
+
+.. inheritance-diagram:: endpoint.keyword_endpoints
+   :parts: 1
+
+
+.. automodule:: endpoint.keyword_endpoints
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: endpoint
+   :members:
+   :undoc-members:
+   :show-inheritance:

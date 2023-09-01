@@ -1,0 +1,37 @@
+app.connector package
+=====================
+
+Submodules
+----------
+
+app.connector.base\_connector module
+------------------------------------
+
+.. inheritance-diagram:: app.connector.base_connector
+   :parts: 1
+
+
+.. automodule:: app.connector.base_connector
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+app.connector.selenium\_connector module
+----------------------------------------
+
+.. inheritance-diagram:: app.connector.selenium_connector
+   :parts: 1
+
+
+.. automodule:: app.connector.selenium_connector
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: app.connector
+   :members:
+   :undoc-members:
+   :show-inheritance:

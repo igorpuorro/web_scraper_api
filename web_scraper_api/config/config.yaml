@@ -1,0 +1,3 @@
+chrome_path: "selenium/chrome-linux64/chrome"
+chromedriver_path: "selenium/chromedriver-linux64/chromedriver"
+cache_directory: "cache"

@@ -1,0 +1,5 @@
+Sphinx
+graphviz
+mypy
+sphinx-automodapi
+sphinx_rtd_theme

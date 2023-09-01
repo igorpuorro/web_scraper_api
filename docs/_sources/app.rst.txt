@@ -1,0 +1,23 @@
+app package
+===========
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   app.cache
+   app.connector
+   app.extractor
+   app.handler
+   app.matching
+   app.presenter
+
+Module contents
+---------------
+
+.. automodule:: app
+   :members:
+   :undoc-members:
+   :show-inheritance:

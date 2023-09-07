@@ -14,11 +14,13 @@ blueprint_keyword_endpoints = Blueprint("keyword", __name__)
 def endpoint_post_keyword_match_summary():
     url: str
     json_keywords: str
+    threshold: str
 
     try:
         url = str(request.args.get("url"))
         json_keywords = str(request.args.get("keywords"))
         keywords = json.loads(json_keywords)["keywords"]
+        threshold = str(request.args.get("threshold", str()))
 
         job_search_handler_factory = SeleniumJobSearchHandlerFactory()
         job_search_selenium_handler = job_search_handler_factory.create(
@@ -34,7 +36,13 @@ def endpoint_post_keyword_match_summary():
         job_description = job_search_extractor.get_setences()
 
         matching = AdvancedMatching()
-        summary = matching.match_with_sentences(job_description, keywords)
+
+        if len(threshold) == 0:
+            summary = matching.match_with_sentences(
+                job_description, keywords)
+        else:
+            summary = matching.match_with_sentences(
+                job_description, keywords, threshold=int(threshold))
 
         keyword_presenter = KeywordPresenter()
         response_data = keyword_presenter.format_summary(summary)

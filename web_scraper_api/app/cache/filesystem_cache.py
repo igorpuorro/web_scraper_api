@@ -17,12 +17,19 @@ class FilesystemCache(BaseCache):
     def generate_cache_key(self, url: str) -> str:
         return hashlib.md5(url.encode("utf-8")).hexdigest()
 
-    def load_from_cache(self, url) -> Any:
+    def is_cached(self, url) -> bool:
         cache_key = self.generate_cache_key(url)
         cache_file_path = os.path.join(
             self.config["cache_directory"], cache_key)
 
-        if os.path.exists(cache_file_path):
+        return os.path.exists(cache_file_path)
+
+    def load_from_cache(self, url) -> Any:
+        if self.is_cached(url):
+            cache_key = self.generate_cache_key(url)
+            cache_file_path = os.path.join(
+                self.config["cache_directory"], cache_key)
+
             with open(cache_file_path, "rb") as cache_file:
                 return pickle.load(cache_file)
 

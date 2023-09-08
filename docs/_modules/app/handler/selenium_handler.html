@@ -72,6 +72,7 @@
              
   <h1>Source code for app.handler.selenium_handler</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">app.cache.filesystem_cache</span> <span class="kn">import</span> <span class="n">FilesystemCache</span>
+<span class="kn">from</span> <span class="nn">app.connector.base_connector</span> <span class="kn">import</span> <span class="n">BaseConnector</span>
 <span class="kn">from</span> <span class="nn">app.connector.selenium_connector</span> <span class="kn">import</span> <span class="n">SeleniumConnector</span>
 <span class="kn">from</span> <span class="nn">app.handler.base_handler</span> <span class="kn">import</span> <span class="n">BaseHandler</span>
 
@@ -80,13 +81,17 @@
 <a class="viewcode-back" href="../../../app.handler.html#app.handler.selenium_handler.SeleniumHandler">[docs]</a>
 <span class="k">class</span> <span class="nc">SeleniumHandler</span><span class="p">(</span><span class="n">BaseHandler</span><span class="p">):</span>
     <span class="n">connector</span><span class="p">:</span> <span class="n">SeleniumConnector</span>
+    <span class="n">filesystem_cache</span><span class="p">:</span> <span class="n">FilesystemCache</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connector</span><span class="p">:</span> <span class="n">BaseConnector</span><span class="p">,</span> <span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filesystem_cache</span> <span class="o">=</span> <span class="n">FilesystemCache</span><span class="p">(</span><span class="n">connector</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">connector</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span>
 
 <div class="viewcode-block" id="SeleniumHandler.retrieve_cached_content">
 <a class="viewcode-back" href="../../../app.handler.html#app.handler.selenium_handler.SeleniumHandler.retrieve_cached_content">[docs]</a>
     <span class="k">def</span> <span class="nf">retrieve_cached_content</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">filesystem_cache</span> <span class="o">=</span> <span class="n">FilesystemCache</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
-            <span class="n">cached_content</span> <span class="o">=</span> <span class="n">filesystem_cache</span><span class="o">.</span><span class="n">load_from_cache</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
+            <span class="n">cached_content</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filesystem_cache</span><span class="o">.</span><span class="n">load_from_cache</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="n">cached_content</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;about:blank&quot;</span><span class="p">)</span>
@@ -95,8 +100,6 @@
                 <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">retrieve_content</span><span class="p">()</span>
-                <span class="n">filesystem_cache</span><span class="o">.</span><span class="n">save_to_cache</span><span class="p">(</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">page_source</span><span class="p">)</span>
 
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
@@ -109,6 +112,10 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;chrome://version/&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">filesystem_cache</span><span class="o">.</span><span class="n">is_cached</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">filesystem_cache</span><span class="o">.</span><span class="n">save_to_cache</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">page_source</span><span class="p">)</span>
 
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>

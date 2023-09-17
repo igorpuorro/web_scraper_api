@@ -1,0 +1,25 @@
+app.http\_handler package
+=========================
+
+Submodules
+----------
+
+app.http\_handler.request\_handler module
+-----------------------------------------
+
+.. inheritance-diagram:: app.http_handler.request_handler
+   :parts: 1
+
+
+.. automodule:: app.http_handler.request_handler
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: app.http_handler
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -11,6 +11,7 @@ Subpackages
    app.connector
    app.extractor
    app.handler
+   app.http_handler
    app.matching
    app.presenter
 

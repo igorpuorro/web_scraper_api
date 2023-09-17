@@ -71,14 +71,18 @@
            <div itemprop="articleBody">
              
   <h1>Source code for endpoint.keyword_endpoints</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">json</span>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
 
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="kn">from</span> <span class="nn">werkzeug.exceptions</span> <span class="kn">import</span> <span class="n">BadRequest</span>
 <span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Blueprint</span><span class="p">,</span> <span class="n">current_app</span><span class="p">,</span> <span class="n">jsonify</span><span class="p">,</span> <span class="n">request</span>
 
 <span class="kn">from</span> <span class="nn">app.extractor.job_search_extractor_factory</span> <span class="kn">import</span> <span class="n">JobSearchExtractorFactory</span>
 <span class="kn">from</span> <span class="nn">app.handler.selenium_job_search_handler_factory</span> <span class="kn">import</span> <span class="n">SeleniumJobSearchHandlerFactory</span>
 <span class="kn">from</span> <span class="nn">app.matching.advanced_matching</span> <span class="kn">import</span> <span class="n">AdvancedMatching</span>
 <span class="kn">from</span> <span class="nn">app.presenter.keyword_presenter</span> <span class="kn">import</span> <span class="n">KeywordPresenter</span>
+<span class="kn">from</span> <span class="nn">app.http_handler.request_handler</span> <span class="kn">import</span> <span class="n">RequestHandler</span>
 
 <span class="n">blueprint_keyword_endpoints</span> <span class="o">=</span> <span class="n">Blueprint</span><span class="p">(</span><span class="s2">&quot;keyword&quot;</span><span class="p">,</span> <span class="vm">__name__</span><span class="p">)</span>
 
@@ -88,29 +92,33 @@
 <span class="nd">@blueprint_keyword_endpoints</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/keyword/match/summary&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">])</span>
 <span class="k">def</span> <span class="nf">endpoint_post_keyword_match_summary</span><span class="p">():</span>
     <span class="n">url</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">json_keywords</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">keywords_json</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">keywords</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
     <span class="n">threshold</span><span class="p">:</span> <span class="nb">str</span>
 
     <span class="k">try</span><span class="p">:</span>
-        <span class="n">url</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;url&quot;</span><span class="p">))</span>
-        <span class="n">json_keywords</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;keywords&quot;</span><span class="p">))</span>
-        <span class="n">keywords</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">json_keywords</span><span class="p">)[</span><span class="s2">&quot;keywords&quot;</span><span class="p">]</span>
-        <span class="n">threshold</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;threshold&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">()))</span>
+        <span class="n">request_data</span> <span class="o">=</span> <span class="n">RequestHandler</span><span class="o">.</span><span class="n">validate_request</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="n">mandatory_keys</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;keywords&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">}</span>
+        <span class="n">RequestHandler</span><span class="o">.</span><span class="n">validate_request_data</span><span class="p">(</span><span class="n">request_data</span><span class="p">,</span> <span class="n">mandatory_keys</span><span class="p">)</span>
 
-        <span class="n">job_search_handler_factory</span> <span class="o">=</span> <span class="n">SeleniumJobSearchHandlerFactory</span><span class="p">()</span>
-        <span class="n">job_search_selenium_handler</span> <span class="o">=</span> <span class="n">job_search_handler_factory</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
-            <span class="n">current_app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;selenium_connector&quot;</span><span class="p">],</span> <span class="n">url</span><span class="p">)</span>
-        <span class="c1"># selenium_handler.retrieve_content()</span>
-        <span class="n">job_search_selenium_handler</span><span class="o">.</span><span class="n">retrieve_cached_content</span><span class="p">()</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">request_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;url&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="n">keywords_json</span> <span class="o">=</span> <span class="n">request_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;keywords&quot;</span><span class="p">,</span> <span class="s2">&quot;[]&quot;</span><span class="p">)</span>
+        <span class="n">keywords</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">keywords_json</span><span class="p">)</span>
+        <span class="n">threshold</span> <span class="o">=</span> <span class="n">request_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;threshold&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
 
-        <span class="n">job_search_extractor_factory</span> <span class="o">=</span> <span class="n">JobSearchExtractorFactory</span><span class="p">()</span>
-        <span class="n">job_search_extractor</span> <span class="o">=</span> <span class="n">job_search_extractor_factory</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
-            <span class="n">job_search_selenium_handler</span><span class="p">,</span> <span class="n">job_search_selenium_handler</span><span class="o">.</span><span class="n">find_section_job_description</span>
+        <span class="n">selenium_job_search_handler</span> <span class="o">=</span> <span class="n">SeleniumJobSearchHandlerFactory</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+            <span class="n">current_app</span><span class="o">.</span><span class="n">selenium_connector</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span>
+        <span class="c1"># selenium_job_search_handler.retrieve_content()</span>
+        <span class="n">selenium_job_search_handler</span><span class="o">.</span><span class="n">retrieve_cached_content</span><span class="p">()</span>
+
+        <span class="n">job_search_extractor</span> <span class="o">=</span> <span class="n">JobSearchExtractorFactory</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+            <span class="n">selenium_job_search_handler</span><span class="p">,</span> <span class="n">selenium_job_search_handler</span><span class="o">.</span><span class="n">find_section_job_description</span>
         <span class="p">)</span>
         <span class="n">job_search_extractor</span><span class="o">.</span><span class="n">extract_job_description</span><span class="p">()</span>
         <span class="n">job_description</span> <span class="o">=</span> <span class="n">job_search_extractor</span><span class="o">.</span><span class="n">get_setences</span><span class="p">()</span>
 
         <span class="n">matching</span> <span class="o">=</span> <span class="n">AdvancedMatching</span><span class="p">()</span>
+        <span class="n">summary</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">threshold</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">summary</span> <span class="o">=</span> <span class="n">matching</span><span class="o">.</span><span class="n">match_with_sentences</span><span class="p">(</span>
@@ -125,10 +133,11 @@
 
         <span class="k">return</span> <span class="n">response</span><span class="p">,</span> <span class="mi">200</span>
 
-    <span class="k">except</span> <span class="p">(</span><span class="ne">FileNotFoundError</span><span class="p">,</span> <span class="ne">RuntimeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">)</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
-        <span class="n">response</span> <span class="o">=</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="n">error</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">BadRequest</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span><span class="s2">&quot;errors&quot;</span><span class="p">:</span> <span class="n">error</span><span class="o">.</span><span class="n">description</span><span class="p">}),</span> <span class="mi">400</span>
 
-        <span class="k">return</span> <span class="n">response</span><span class="p">,</span> <span class="mi">500</span></div>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">FileNotFoundError</span><span class="p">,</span> <span class="ne">RuntimeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">)</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span><span class="s2">&quot;errors&quot;</span><span class="p">:</span> <span class="n">error</span><span class="p">}),</span> <span class="mi">500</span></div>
 
 </pre></div>
 

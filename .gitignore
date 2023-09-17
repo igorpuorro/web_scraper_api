@@ -8,3 +8,6 @@ web_scraper_api/selenium/chrome-*
 web_scraper_api/selenium/chrome-*.zip
 web_scraper_api/selenium/chromedriver-*
 web_scraper_api/selenium/chromedriver-*.zip
+web_scraper_api/config/sphinx/_build/
+web_scraper_api/config/sphinx/*.rst
+!web_scraper_api/config/sphinx/index.rst

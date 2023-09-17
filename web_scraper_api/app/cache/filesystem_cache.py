@@ -8,11 +8,16 @@ from app.cache.base_cache import BaseCache
 
 
 class FilesystemCache(BaseCache):
+    cache_directory: str
+
     def __init__(self, config: dict):
         super().__init__(config)
 
-        if not os.path.exists(self.config["cache_directory"]):
-            raise FileNotFoundError(self.config["cache_directory"])
+        self.cache_directory = self.config.get(
+            "web_scraper_api").get("cache_directory")
+
+        if not os.path.exists(self.cache_directory):
+            raise FileNotFoundError(self.cache_directory)
 
     def generate_cache_key(self, url: str) -> str:
         return hashlib.md5(url.encode("utf-8")).hexdigest()
@@ -20,7 +25,7 @@ class FilesystemCache(BaseCache):
     def is_cached(self, url) -> bool:
         cache_key = self.generate_cache_key(url)
         cache_file_path = os.path.join(
-            self.config["cache_directory"], cache_key)
+            self.cache_directory, cache_key)
 
         return os.path.exists(cache_file_path)
 
@@ -28,7 +33,7 @@ class FilesystemCache(BaseCache):
         if self.is_cached(url):
             cache_key = self.generate_cache_key(url)
             cache_file_path = os.path.join(
-                self.config["cache_directory"], cache_key)
+                self.cache_directory, cache_key)
 
             with open(cache_file_path, "rb") as cache_file:
                 return pickle.load(cache_file)
@@ -38,7 +43,7 @@ class FilesystemCache(BaseCache):
     def save_to_cache(self, url, content) -> None:
         cache_key = self.generate_cache_key(url)
         cache_file_path = os.path.join(
-            self.config["cache_directory"], cache_key)
+            self.cache_directory, cache_key)
 
         with open(cache_file_path, "wb") as cache_file:
             pickle.dump(content, cache_file)

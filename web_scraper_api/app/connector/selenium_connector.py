@@ -10,6 +10,10 @@ class SeleniumConnector(BaseConnector):
 
     def connect(self) -> None:
         try:
+            chrome_path = self.config.get("web_scraper_api").get("chrome_path")
+            chromedriver_path = self.config.get(
+                "web_scraper_api").get("chromedriver_path")
+
             chrome_options = Options()
             chrome_options.add_argument(
                 "--disable-blink-features=AutomationControlled")
@@ -24,8 +28,10 @@ class SeleniumConnector(BaseConnector):
                 "profile.default_content_setting_values": {"images": 0}
             }
             chrome_options.add_experimental_option("prefs", chrome_prefs)
-            chrome_options.binary_location = self.config["chrome_path"]
-            webdriver_service = Service(self.config["chromedriver_path"])
+            chrome_options.binary_location = chrome_path
+
+            webdriver_service = Service(chromedriver_path)
+
             self.driver = webdriver.Chrome(
                 service=webdriver_service, options=chrome_options
             )

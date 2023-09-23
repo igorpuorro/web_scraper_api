@@ -1,5 +1,9 @@
 DEBUG: True
 web_scraper_api:
+    log_level: "INFO"
+    log_directory: "log"
+    screenshot_directory: "screenshot"
+    cache_directory: "cache"
+    api_contracts_path: "config/api_contracts.json"
     chrome_path: "selenium/chrome-linux64/chrome"
     chromedriver_path: "selenium/chromedriver-linux64/chromedriver"
-    cache_directory: "cache"

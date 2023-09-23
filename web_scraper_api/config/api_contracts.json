@@ -1,0 +1,24 @@
+{
+    "/keyword/match/summary": {
+        "POST": {
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "url": {
+                        "type": "string"
+                    },
+                    "keywords": {
+                        "type": "string"
+                    },
+                    "threshold": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "url",
+                    "keywords"
+                ]
+            }
+        }
+    }
+}

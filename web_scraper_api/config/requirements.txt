@@ -2,6 +2,7 @@ PyYAML
 bs4
 flask
 flask_cors
+jsonschema
 langdetect
 nltk
 pandas
@@ -14,5 +15,6 @@ types-Flask-Cors
 types-PyYAML
 types-beautifulsoup4
 types-colorama
+types-jsonschema
 types-requests
 uwsgi 

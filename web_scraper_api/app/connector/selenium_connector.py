@@ -1,19 +1,28 @@
+from typing import Union
+
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 
+from app.app_config.app_config import AppConfig
+from app.cache.base_cache import BaseCache
 from app.connector.base_connector import BaseConnector
 
 
 class SeleniumConnector(BaseConnector):
+    chrome_path: str
+    chromedriver_path: str
     driver: webdriver.Chrome
+
+    def __init__(self, app_config: AppConfig, cache: Union[None, BaseCache] = None):
+        super().__init__(app_config, cache)
+
+        self.cache = cache
+        self.chrome_path = app_config.get("chrome_path")
+        self.chromedriver_path = app_config.get("chromedriver_path")
 
     def connect(self) -> None:
         try:
-            chrome_path = self.config.get("web_scraper_api").get("chrome_path")
-            chromedriver_path = self.config.get(
-                "web_scraper_api").get("chromedriver_path")
-
             chrome_options = Options()
             chrome_options.add_argument(
                 "--disable-blink-features=AutomationControlled")
@@ -28,12 +37,13 @@ class SeleniumConnector(BaseConnector):
                 "profile.default_content_setting_values": {"images": 0}
             }
             chrome_options.add_experimental_option("prefs", chrome_prefs)
-            chrome_options.binary_location = chrome_path
+            chrome_options.binary_location = self.chrome_path
 
-            webdriver_service = Service(chromedriver_path)
+            webdriver_service = Service(self.chromedriver_path)
 
             self.driver = webdriver.Chrome(
-                service=webdriver_service, options=chrome_options
+                service=webdriver_service,
+                options=chrome_options
             )
 
         except Exception as error:

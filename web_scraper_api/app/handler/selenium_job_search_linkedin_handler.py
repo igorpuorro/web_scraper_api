@@ -1,3 +1,4 @@
+from flask import current_app
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -19,6 +20,11 @@ class SeleniumJobSearchLinkedInHandler(SeleniumJobSearchHandler):
             #    "window.scrollTo(0, document.body.scrollHeight);"
             # )
             page_source = self.connector.driver.page_source
+
+            getattr(current_app, "app_logger").log_screenshot(
+                getattr(current_app, "app_logger").get_level_name("INFO"),
+                self.connector
+            )
 
         except Exception as error:
             raise RuntimeError(

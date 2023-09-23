@@ -4,6 +4,8 @@ __pycache__/
 ssh/
 ssh
 web_scraper_api/cache/
+web_scraper_api/log/
+web_scraper_api/screenshot/
 web_scraper_api/selenium/chrome-*
 web_scraper_api/selenium/chrome-*.zip
 web_scraper_api/selenium/chromedriver-*

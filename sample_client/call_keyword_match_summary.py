@@ -23,7 +23,6 @@ def main():
     request_data = {
         "url": data_url,
         "keywords": json.dumps(yaml_content["keywords"]),
-        "threshold": "90",
     }
 
     request_data_json = json.dumps(request_data)
@@ -34,7 +33,7 @@ def main():
 
     try:
         response = requests.post(
-            endpoint, headers=headers, data=request_data_json, timeout=10)
+            endpoint, headers=headers, data=request_data_json, timeout=20)
         response.raise_for_status()
         response_data = response.json()
 

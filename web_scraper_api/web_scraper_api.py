@@ -1,12 +1,15 @@
 import atexit
 import datetime
 import os
-import yaml
 
 from flask import Flask
 from flask_cors import CORS
 import nltk
 
+from app.app_config.app_config import AppConfig
+from app.app_logger.app_logger import AppLogger
+from app.app_middleware.sanitize_validate_middleware import SanitizeValidateMiddleware
+from app.cache.filesystem_cache import FilesystemCache
 from app.connector.selenium_connector import SeleniumConnector
 
 from endpoint.keyword_endpoints import blueprint_keyword_endpoints
@@ -14,14 +17,11 @@ from endpoint.keyword_endpoints import blueprint_keyword_endpoints
 
 def cleanup_function():
     with app.app_context():
-        if hasattr(app, 'selenium_connector') and isinstance(app.selenium_connector, SeleniumConnector):
-            app.selenium_connector.disconnect()
-
-
-def load_yaml(file_path: str) -> dict:
-    with open(file_path, "r", encoding="utf-8") as yaml_file:
-        content = yaml.safe_load(yaml_file)
-    return content
+        if hasattr(app, 'selenium_connector') and isinstance(getattr(app, "selenium_connector"), SeleniumConnector):
+            getattr(
+                app,
+                "selenium_connector"
+            ).disconnect()
 
 
 def nltk_download_punkt(force: bool = False) -> None:
@@ -53,22 +53,48 @@ def create_app():
 
     try:
         with app_instance.app_context():
-            config_yaml = load_yaml(os.path.join("config", "config.yaml"))
-            app_instance.config.update(config_yaml)
+            setattr(
+                app_instance,
+                "app_config",
+                AppConfig(__name__, os.path.join("config", "config.json"))
+            )
 
-            cache_directory = app_instance.config.get(
-                "web_scraper_api").get("cache_directory")
-            os.makedirs(cache_directory, exist_ok=True)
+            if not hasattr(app_instance, "app_config"):
+                raise RuntimeError("Failed to create AppConfig")
 
             nltk_download_punkt()
 
-            selenium_connector = SeleniumConnector(app_instance.config)
+            setattr(
+                app_instance,
+                "app_logger",
+                AppLogger(__name__, getattr(app_instance, "app_config"))
+            )
 
-            if not selenium_connector:
+            if not hasattr(app_instance, "app_logger"):
+                raise RuntimeError("Failed to create Logger")
+
+            setattr(
+                app_instance,
+                "selenium_connector",
+                SeleniumConnector(
+                    getattr(app_instance, "app_config"),
+                    FilesystemCache(getattr(app_instance, "app_config"))
+                )
+            )
+
+            if not hasattr(app_instance, "selenium_connector"):
                 raise RuntimeError("Failed to create SeleniumConnector")
 
-            selenium_connector.connect()
-            app_instance.selenium_connector = selenium_connector
+            getattr(app_instance, "selenium_connector").connect()
+
+            setattr(
+                app_instance,
+                "wsgi_app",
+                SanitizeValidateMiddleware(
+                    getattr(app_instance, "app_config"),
+                    getattr(app_instance, "wsgi_app")
+                )
+            )
 
     except Exception as error:
         raise RuntimeError(error) from error

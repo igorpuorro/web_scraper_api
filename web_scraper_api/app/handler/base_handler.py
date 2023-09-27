@@ -16,9 +16,17 @@ class BaseHandler(ABC):
         self.url = url
 
     @abstractmethod
+    def browser_navigator_object(self) -> str:
+        pass
+
+    @abstractmethod
     def retrieve_cached_content(self) -> None:
         pass
 
     @abstractmethod
     def retrieve_content(self) -> None:
+        pass
+
+    @abstractmethod
+    def take_screenshot(self, screenshot_path: str) -> None:
         pass

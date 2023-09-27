@@ -1,33 +1,38 @@
 from flask import current_app
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
 
 from app.handler.selenium_job_search_handler import SeleniumJobSearchHandler
 
 
 class SeleniumJobSearchLinkedInHandler(SeleniumJobSearchHandler):
     def find_section_job_description(self) -> str:
-        page_source: str
-
         try:
-            locator = (By.CLASS_NAME, "show-more-less-html__button")
-            element = WebDriverWait(self.connector.driver, 10).until(
-                EC.element_to_be_clickable(locator)
+            self.connector.driver.execute_script(
+                '''
+                const xpathExpression = '/html/body/main/section[1]/div/div/section[1]/div/div/section/button[1]';
+                const element = document.evaluate(xpathExpression, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+
+                if (element) {
+                    element.addEventListener('click', function() {
+                        console.log('Button clicked!');
+                    });
+
+                    element.click();
+                }
+                '''
             )
-            element.click()
-            # self.connector.driver.execute_script(
-            #    "window.scrollTo(0, document.body.scrollHeight);"
-            # )
-            page_source = self.connector.driver.page_source
 
             getattr(current_app, "app_logger").log_screenshot(
                 getattr(current_app, "app_logger").get_level_name("INFO"),
-                self.connector
+                self
             )
+
+            getattr(current_app, "app_logger").log_browser_navigator_object(
+                getattr(current_app, "app_logger").get_level_name("INFO"),
+                self
+            )
+
+            return self.connector.driver.page_source
 
         except Exception as error:
             raise RuntimeError(
                 f"{self.__class__.__qualname__}>\n{error}") from error
-
-        return page_source

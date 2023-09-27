@@ -2,12 +2,12 @@ import datetime
 import inspect
 import logging
 import os
+import time
 
 from flask import request
-from selenium.common.exceptions import WebDriverException
 
 from app.app_config.app_config import AppConfig
-from app.connector.base_connector import BaseConnector
+from app.handler.base_handler import BaseHandler
 
 
 class AppLogger:
@@ -70,22 +70,37 @@ class AppLogger:
         except (AttributeError, IndexError) as error:
             logging.error("Failed to log: %s", str(error))
 
-    def log_screenshot(self, log_level: int, connector: BaseConnector) -> None:
+    def log_browser_navigator_object(self, log_level: int, handler: BaseHandler) -> None:
+        try:
+            if log_level >= self.log_level:
+                browser_navigator_object = handler.browser_navigator_object()
+
+                self.log(
+                    log_level,
+                    f"BROWSER_NAVIGATOR_OBJECT\n{browser_navigator_object}"
+                )
+
+        except (AttributeError, IndexError) as error:
+            logging.error("Failed to log: %s", str(error))
+
+    def log_screenshot(self, log_level: int, handler: BaseHandler) -> None:
         try:
             if log_level >= self.log_level:
                 now = datetime.datetime.now()
                 timestamp = now.strftime("%Y-%m-%d_%H-%M-%S-%f")
-                screenshot_filename = f"{timestamp}.png"
+                screenshot_filename = f"log_{timestamp}.png"
                 screenshot_path = os.path.join(
                     self.screenshot_directory, screenshot_filename
                 )
 
-                getattr(
-                    connector,
-                    "driver"
-                ).get_screenshot_as_file(screenshot_path)
+                time.sleep(1)
 
-                self.log(log_level, f"SCREENSHOT {screenshot_path}")
+                handler.take_screenshot(screenshot_path)
 
-        except WebDriverException as error:
-            logging.error("Failed to capture screenshot: %s", str(error))
+                self.log(
+                    log_level,
+                    f"SCREENSHOT {screenshot_path}"
+                )
+
+        except (AttributeError, IndexError) as error:
+            logging.error("Failed to log: %s", str(error))

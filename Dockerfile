@@ -30,7 +30,7 @@ RUN sed -i 's/#PubkeyAuthentication yes/PubkeyAuthentication yes/' /etc/ssh/sshd
     sed -i 's/#PasswordAuthentication no/PasswordAuthentication no/' /etc/ssh/sshd_config
 
 COPY $app_dir_name/config/ubuntu-packages.txt /root
-RUN cat /root/ubuntu-packages.txt | xargs apt install -y
+RUN cat /root/ubuntu-packages.txt | xargs apt-get install -y
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 

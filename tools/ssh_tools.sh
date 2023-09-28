@@ -1,30 +1,33 @@
 #!/bin/bash
 
+# Get the current directory and store it in a variable
+current_dir=$(pwd)
+
 # Function to generate an SSH key pair
 function generate_ssh_key() {
     echo "Generating SSH key pair..."
 
-    test ! -d ./ssh && mkdir ./ssh
-    ssh-keygen -t rsa -b 4096 -f ./ssh/id_rsa -N ""
+    test ! -d "$current_dir"/ssh && mkdir "$current_dir"/ssh
+    ssh-keygen -t rsa -b 4096 -f "$current_dir"/ssh/id_rsa -N ""
 }
 
 # Function to connect to a container using SSH
 function connect_to_container() {
     echo "Connecting to container using SSH..."
 
-    if [ ! -d ./ssh ]; then
+    if [ ! -d "$current_dir"/ssh ]; then
         echo "SSH directory does not exist."
         exit 1
     fi
 
-    if [ ! -f ./ssh/id_rsa ]; then
+    if [ ! -f "$current_dir"/ssh/id_rsa ]; then
         echo "id_rsa file does not exist."
         exit 1
     fi
 
-    ssh-keygen -R localhost
+    ssh-keygen -f ~/.ssh/known_hosts -R "[localhost]:2222"
 
-    ssh -i ./ssh/id_rsa root@localhost -p 2222
+    ssh -i "$current_dir"/ssh/id_rsa root@localhost -p 2222
 }
 
 # Check for the command-line options

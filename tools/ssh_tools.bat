@@ -40,6 +40,6 @@ if not exist .\ssh\id_rsa (
     exit /b 1
 )
 
-ssh-keygen -R localhost
+ssh-keygen -R "[localhost]:2222"
 ssh -i .\ssh\id_rsa root@localhost -p 2222
 goto :EOF

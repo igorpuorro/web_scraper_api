@@ -1,7 +1,0 @@
-web\_scraper\_api module
-========================
-
-.. automodule:: web_scraper_api
-   :members:
-   :undoc-members:
-   :show-inheritance:

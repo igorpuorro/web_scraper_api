@@ -15,31 +15,31 @@ https://igorpuorro.github.io/web_scraper_api/
 2\. Change to the root directory:
 
 ```
-    cd web_scraper_api/
+    cd web_scraper_api
 ```
 
 3\. Generate SSH keys to connect to the container:
 
 ```
-    ./ssh_tools.sh --keygen
+    tools/ssh_tools.sh --keygen
 ```
 
 4\. Build an Ubuntu Linux Docker image:
 
 ```
-    ./docker_tools.sh --build-image web-scraper-api ./web_scraper_api/
+    tools/docker_tools.sh --build-image web-scraper-api web_scraper_api
 ```
 
 5\. Start the Docker container:
 
 ```
-    ./docker_tools.sh --start-container
+    tools/docker_tools.sh --start-container
 ```
 
 6\. Connect to the container:
 
 ```
-    ./ssh_tools.sh --connect-to-container
+    tools/ssh_tools.sh --connect-to-container
 ```
 
 7\. Proceed to [step 6 on "Installing on Ubuntu Linux."](#step-6).
@@ -56,31 +56,31 @@ https://igorpuorro.github.io/web_scraper_api/
 2\. Change to the root directory:
 
 ```
-    cd .\web_scraper_api
+    cd web_scraper_api
 ```
 
 3\. Generate SSH keys to connect to the container:
 
 ```
-    .\ssh_tools.bat --keygen
+    tools\ssh_tools.bat --keygen
 ```
 
 4\. Build an Ubuntu Linux Docker image:
 
 ```
-    .\.docker_tools.bat --build-image web-scraper-api .\web_scraper_api
+    tools\docker_tools.bat --build-image web-scraper-api web_scraper_api
 ```
 
 5\. Start the Docker container:
 
 ```
-    .\docker_tools.bat --start-container
+    tools\docker_tools.bat --start-container
 ```
 
 6\. Connect to the container:
 
 ```
-    .\ssh_tools.bat --connect-to-container
+    tools\ssh_tools.bat --connect-to-container
 ```
 
 7\. Proceed to [step 6 on "Installing on Ubuntu Linux."](#step-6).
@@ -98,13 +98,13 @@ Recommended version >= Ubuntu 22.04.3 LTS (Jammy Jellyfish)
 2\. Change to the root directory:
 
 ```
-    cd web_scraper_api/
+    cd web_scraper_api
 ```
 
 3\. Install Chrome for testing dependencies:
 
 ```
-    cat web_scraper_api/config/ubuntu-packages.txt | sudo xargs apt install -y
+    cat web_scraper_api/config/ubuntu-packages.txt | sudo xargs apt-get install -y
 ```
 
 4\. **Optionally** create a Python Virtual Environment (venv):
@@ -120,13 +120,7 @@ Recommended version >= Ubuntu 22.04.3 LTS (Jammy Jellyfish)
     pip3 install -r web_scraper_api/config/requirements.txt
 ```
 
-<a name="step-6"></a>6\. Change to the App directory:
-
-```
-    cd web_scraper_api/
-```
-
-7\. Install the latest version of Chrome for Testing along with ChromeDriver:
+<a name="step-6"></a>6\. Install the latest version of Chrome for Testing along with ChromeDriver:
 
 This script is a tool to download the specified version of Chrome for Testing.
 
@@ -135,7 +129,13 @@ When the ```--chrome-version``` option is used along with ```latest``` as an arg
 https://googlechromelabs.github.io/chrome-for-testing/
 
 ```
-    ./config/cft_download_tools.py --chrome-version latest --platform linux64 --download ./selenium/ --unzip
+    web_scraper_api/tools/cft_download_tools.py --chrome-version latest --platform linux64 --download web_scraper_api/web_scraper_api/selenium/ --unzip
+```
+
+7\. Change to the App directory:
+
+```
+    cd web_scraper_api/web_scraper_api
 ```
 
 8\. Start the App running uWSGI:

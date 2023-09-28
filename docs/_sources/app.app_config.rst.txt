@@ -1,0 +1,25 @@
+app.app\_config package
+=======================
+
+Submodules
+----------
+
+app.app\_config.app\_config module
+----------------------------------
+
+.. inheritance-diagram:: app.app_config.app_config
+   :parts: 1
+
+
+.. automodule:: app.app_config.app_config
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: app.app_config
+   :members:
+   :undoc-members:
+   :show-inheritance:

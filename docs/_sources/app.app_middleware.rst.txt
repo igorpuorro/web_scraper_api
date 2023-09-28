@@ -1,0 +1,25 @@
+app.app\_middleware package
+===========================
+
+Submodules
+----------
+
+app.app\_middleware.sanitize\_validate\_middleware module
+---------------------------------------------------------
+
+.. inheritance-diagram:: app.app_middleware.sanitize_validate_middleware
+   :parts: 1
+
+
+.. automodule:: app.app_middleware.sanitize_validate_middleware
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: app.app_middleware
+   :members:
+   :undoc-members:
+   :show-inheritance:

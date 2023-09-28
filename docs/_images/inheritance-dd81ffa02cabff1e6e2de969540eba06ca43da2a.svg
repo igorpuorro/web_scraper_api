@@ -1,0 +1,74 @@
+<ns0:svg xmlns:ns0="http://www.w3.org/2000/svg" xmlns:ns1="http://www.w3.org/1999/xlink" width="197pt" height="247pt" viewBox="0.00 0.00 197.00 247.00">
+<ns0:g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 243)">
+<ns0:title>inheritance943d9a3f8d</ns0:title>
+
+<ns0:g id="node1" class="node">
+<ns0:title>ABC</ns0:title>
+<ns0:g id="a_node1"><ns0:a ns1:title="Helper class that provides a standard way to create an ABC using">
+<ns0:polygon fill="white" stroke="black" stroke-width="0.5" points="121.5,-239 67.5,-239 67.5,-220 121.5,-220 121.5,-239" />
+<ns0:text text-anchor="middle" x="94.5" y="-227" font-family="Vera Sans, DejaVu Sans, Liberation Sans, Arial, Helvetica, sans" font-size="10.00">ABC</ns0:text>
+</ns0:a>
+</ns0:g>
+</ns0:g>
+
+<ns0:g id="node2" class="node">
+<ns0:title>BaseHandler</ns0:title>
+<ns0:g id="a_node2"><ns0:a ns1:href="../app.handler.html#app.handler.base_handler.BaseHandler" ns1:title="BaseHandler" target="_top">
+<ns0:polygon fill="white" stroke="black" stroke-width="0.5" points="134,-184 55,-184 55,-165 134,-165 134,-184" />
+<ns0:text text-anchor="middle" x="94.5" y="-172" font-family="Vera Sans, DejaVu Sans, Liberation Sans, Arial, Helvetica, sans" font-size="10.00">BaseHandler</ns0:text>
+</ns0:a>
+</ns0:g>
+</ns0:g>
+
+<ns0:g id="edge1" class="edge">
+<ns0:title>ABC-&gt;BaseHandler</ns0:title>
+<ns0:path fill="none" stroke="black" stroke-width="0.5" d="M94.5,-219.75C94.5,-211.41 94.5,-198.74 94.5,-189.09" />
+<ns0:polygon fill="black" stroke="black" stroke-width="0.5" points="96.25,-189.09 94.5,-184.09 92.75,-189.09 96.25,-189.09" />
+</ns0:g>
+
+<ns0:g id="node3" class="node">
+<ns0:title>SeleniumHandler</ns0:title>
+<ns0:g id="a_node3"><ns0:a ns1:href="../app.handler.html#app.handler.selenium_handler.SeleniumHandler" ns1:title="SeleniumHandler" target="_top">
+<ns0:polygon fill="white" stroke="black" stroke-width="0.5" points="145,-129 44,-129 44,-110 145,-110 145,-129" />
+<ns0:text text-anchor="middle" x="94.5" y="-117" font-family="Vera Sans, DejaVu Sans, Liberation Sans, Arial, Helvetica, sans" font-size="10.00">SeleniumHandler</ns0:text>
+</ns0:a>
+</ns0:g>
+</ns0:g>
+
+<ns0:g id="edge2" class="edge">
+<ns0:title>BaseHandler-&gt;SeleniumHandler</ns0:title>
+<ns0:path fill="none" stroke="black" stroke-width="0.5" d="M94.5,-164.75C94.5,-156.41 94.5,-143.74 94.5,-134.09" />
+<ns0:polygon fill="black" stroke="black" stroke-width="0.5" points="96.25,-134.09 94.5,-129.09 92.75,-134.09 96.25,-134.09" />
+</ns0:g>
+
+<ns0:g id="node4" class="node">
+<ns0:title>SeleniumJobSearchHandler</ns0:title>
+<ns0:g id="a_node4"><ns0:a ns1:href="../app.handler.html#app.handler.selenium_job_search_handler.SeleniumJobSearchHandler" ns1:title="SeleniumJobSearchHandler" target="_top">
+<ns0:polygon fill="white" stroke="black" stroke-width="0.5" points="169,-74 20,-74 20,-55 169,-55 169,-74" />
+<ns0:text text-anchor="middle" x="94.5" y="-62" font-family="Vera Sans, DejaVu Sans, Liberation Sans, Arial, Helvetica, sans" font-size="10.00">SeleniumJobSearchHandler</ns0:text>
+</ns0:a>
+</ns0:g>
+</ns0:g>
+
+<ns0:g id="edge3" class="edge">
+<ns0:title>SeleniumHandler-&gt;SeleniumJobSearchHandler</ns0:title>
+<ns0:path fill="none" stroke="black" stroke-width="0.5" d="M94.5,-109.75C94.5,-101.41 94.5,-88.74 94.5,-79.09" />
+<ns0:polygon fill="black" stroke="black" stroke-width="0.5" points="96.25,-79.09 94.5,-74.09 92.75,-79.09 96.25,-79.09" />
+</ns0:g>
+
+<ns0:g id="node5" class="node">
+<ns0:title>SeleniumJobSearchLinkedInHandler</ns0:title>
+<ns0:g id="a_node5"><ns0:a ns1:href="../app.handler.html#app.handler.selenium_job_search_linkedin_handler.SeleniumJobSearchLinkedInHandler" ns1:title="SeleniumJobSearchLinkedInHandler" target="_top">
+<ns0:polygon fill="white" stroke="black" stroke-width="0.5" points="189,-19 0,-19 0,0 189,0 189,-19" />
+<ns0:text text-anchor="middle" x="94.5" y="-7" font-family="Vera Sans, DejaVu Sans, Liberation Sans, Arial, Helvetica, sans" font-size="10.00">SeleniumJobSearchLinkedInHandler</ns0:text>
+</ns0:a>
+</ns0:g>
+</ns0:g>
+
+<ns0:g id="edge4" class="edge">
+<ns0:title>SeleniumJobSearchHandler-&gt;SeleniumJobSearchLinkedInHandler</ns0:title>
+<ns0:path fill="none" stroke="black" stroke-width="0.5" d="M94.5,-54.75C94.5,-46.41 94.5,-33.74 94.5,-24.09" />
+<ns0:polygon fill="black" stroke="black" stroke-width="0.5" points="96.25,-24.09 94.5,-19.09 92.75,-24.09 96.25,-24.09" />
+</ns0:g>
+</ns0:g>
+</ns0:svg>

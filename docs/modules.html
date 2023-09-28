@@ -21,6 +21,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="app package" href="app.html" />
     <link rel="prev" title="Welcome to Web Scraper API’s documentation!" href="index.html" /> 
 </head>
 
@@ -45,7 +46,11 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">web_scraper_api</a><ul class="simple">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">web_scraper_api</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="app.html">app package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="endpoint.html">endpoint package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="web_scraper_api.html">web_scraper_api module</a></li>
 </ul>
 </li>
 </ul>
@@ -77,6 +82,93 @@
   <section id="web-scraper-api">
 <h1>web_scraper_api<a class="headerlink" href="#web-scraper-api" title="Link to this heading"></a></h1>
 <div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="app.html">app package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="app.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="app.app_config.html">app.app_config package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="app.app_config.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.app_config.html#app-app-config-app-config-module">app.app_config.app_config module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.app_config.html#module-app.app_config">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="app.app_logger.html">app.app_logger package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="app.app_logger.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.app_logger.html#app-app-logger-app-logger-module">app.app_logger.app_logger module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.app_logger.html#module-app.app_logger">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="app.app_middleware.html">app.app_middleware package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="app.app_middleware.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.app_middleware.html#app-app-middleware-sanitize-validate-middleware-module">app.app_middleware.sanitize_validate_middleware module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.app_middleware.html#module-app.app_middleware">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="app.cache.html">app.cache package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="app.cache.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.cache.html#app-cache-base-cache-module">app.cache.base_cache module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.cache.html#app-cache-filesystem-cache-module">app.cache.filesystem_cache module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.cache.html#module-app.cache">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="app.connector.html">app.connector package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="app.connector.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.connector.html#app-connector-base-connector-module">app.connector.base_connector module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.connector.html#app-connector-selenium-connector-module">app.connector.selenium_connector module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.connector.html#module-app.connector">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="app.extractor.html">app.extractor package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="app.extractor.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.extractor.html#app-extractor-base-extractor-module">app.extractor.base_extractor module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.extractor.html#app-extractor-job-search-extractor-module">app.extractor.job_search_extractor module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.extractor.html#app-extractor-job-search-extractor-factory-module">app.extractor.job_search_extractor_factory module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.extractor.html#app-extractor-job-search-glassdoor-extractor-module">app.extractor.job_search_glassdoor_extractor module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.extractor.html#app-extractor-job-search-linkedin-extractor-module">app.extractor.job_search_linkedin_extractor module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.extractor.html#module-app.extractor">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="app.handler.html">app.handler package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="app.handler.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.handler.html#app-handler-base-handler-module">app.handler.base_handler module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.handler.html#app-handler-selenium-handler-module">app.handler.selenium_handler module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.handler.html#app-handler-selenium-job-search-glassdoor-handler-module">app.handler.selenium_job_search_glassdoor_handler module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.handler.html#app-handler-selenium-job-search-handler-module">app.handler.selenium_job_search_handler module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.handler.html#app-handler-selenium-job-search-handler-factory-module">app.handler.selenium_job_search_handler_factory module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.handler.html#app-handler-selenium-job-search-linkedin-handler-module">app.handler.selenium_job_search_linkedin_handler module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.handler.html#module-app.handler">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="app.matching.html">app.matching package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="app.matching.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.matching.html#app-matching-advanced-matching-module">app.matching.advanced_matching module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.matching.html#app-matching-base-matching-module">app.matching.base_matching module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.matching.html#module-app.matching">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="app.presenter.html">app.presenter package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="app.presenter.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.presenter.html#app-presenter-base-presenter-module">app.presenter.base_presenter module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.presenter.html#app-presenter-keyword-presenter-module">app.presenter.keyword_presenter module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.presenter.html#module-app.presenter">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="app.html#module-app">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="endpoint.html">endpoint package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="endpoint.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="endpoint.html#endpoint-keyword-endpoints-module">endpoint.keyword_endpoints module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="endpoint.html#endpoint.keyword_endpoints.endpoint_post_keyword_match_summary"><code class="docutils literal notranslate"><span class="pre">endpoint_post_keyword_match_summary()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="endpoint.html#module-endpoint">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="main.html">main module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web_scraper_api.html">web_scraper_api module</a></li>
+</ul>
 </div>
 </section>
 
@@ -85,6 +177,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="index.html" class="btn btn-neutral float-left" title="Welcome to Web Scraper API’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="app.html" class="btn btn-neutral float-right" title="app package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

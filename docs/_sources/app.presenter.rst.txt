@@ -1,0 +1,37 @@
+app.presenter package
+=====================
+
+Submodules
+----------
+
+app.presenter.base\_presenter module
+------------------------------------
+
+.. inheritance-diagram:: app.presenter.base_presenter
+   :parts: 1
+
+
+.. automodule:: app.presenter.base_presenter
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+app.presenter.keyword\_presenter module
+---------------------------------------
+
+.. inheritance-diagram:: app.presenter.keyword_presenter
+   :parts: 1
+
+
+.. automodule:: app.presenter.keyword_presenter
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: app.presenter
+   :members:
+   :undoc-members:
+   :show-inheritance:

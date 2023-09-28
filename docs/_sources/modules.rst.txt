@@ -4,3 +4,7 @@ web_scraper_api
 .. toctree::
    :maxdepth: 4
 
+   app
+   endpoint
+   main
+   web_scraper_api

@@ -1,0 +1,59 @@
+<ns0:svg xmlns:ns0="http://www.w3.org/2000/svg" xmlns:ns1="http://www.w3.org/1999/xlink" width="166pt" height="192pt" viewBox="0.00 0.00 166.00 192.00">
+<ns0:g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 188)">
+<ns0:title>inheritance6b71ef152e</ns0:title>
+
+<ns0:g id="node1" class="node">
+<ns0:title>ABC</ns0:title>
+<ns0:g id="a_node1"><ns0:a ns1:title="Helper class that provides a standard way to create an ABC using">
+<ns0:polygon fill="white" stroke="black" stroke-width="0.5" points="106,-184 52,-184 52,-165 106,-165 106,-184" />
+<ns0:text text-anchor="middle" x="79" y="-172" font-family="Vera Sans, DejaVu Sans, Liberation Sans, Arial, Helvetica, sans" font-size="10.00">ABC</ns0:text>
+</ns0:a>
+</ns0:g>
+</ns0:g>
+
+<ns0:g id="node2" class="node">
+<ns0:title>BaseExtractor</ns0:title>
+<ns0:g id="a_node2"><ns0:a ns1:href="../app.extractor.html#app.extractor.base_extractor.BaseExtractor" ns1:title="BaseExtractor" target="_top">
+<ns0:polygon fill="white" stroke="black" stroke-width="0.5" points="121.5,-129 36.5,-129 36.5,-110 121.5,-110 121.5,-129" />
+<ns0:text text-anchor="middle" x="79" y="-117" font-family="Vera Sans, DejaVu Sans, Liberation Sans, Arial, Helvetica, sans" font-size="10.00">BaseExtractor</ns0:text>
+</ns0:a>
+</ns0:g>
+</ns0:g>
+
+<ns0:g id="edge1" class="edge">
+<ns0:title>ABC-&gt;BaseExtractor</ns0:title>
+<ns0:path fill="none" stroke="black" stroke-width="0.5" d="M79,-164.75C79,-156.41 79,-143.74 79,-134.09" />
+<ns0:polygon fill="black" stroke="black" stroke-width="0.5" points="80.75,-134.09 79,-129.09 77.25,-134.09 80.75,-134.09" />
+</ns0:g>
+
+<ns0:g id="node3" class="node">
+<ns0:title>JobSearchExtractor</ns0:title>
+<ns0:g id="a_node3"><ns0:a ns1:href="../app.extractor.html#app.extractor.job_search_extractor.JobSearchExtractor" ns1:title="JobSearchExtractor" target="_top">
+<ns0:polygon fill="white" stroke="black" stroke-width="0.5" points="133.5,-74 24.5,-74 24.5,-55 133.5,-55 133.5,-74" />
+<ns0:text text-anchor="middle" x="79" y="-62" font-family="Vera Sans, DejaVu Sans, Liberation Sans, Arial, Helvetica, sans" font-size="10.00">JobSearchExtractor</ns0:text>
+</ns0:a>
+</ns0:g>
+</ns0:g>
+
+<ns0:g id="edge2" class="edge">
+<ns0:title>BaseExtractor-&gt;JobSearchExtractor</ns0:title>
+<ns0:path fill="none" stroke="black" stroke-width="0.5" d="M79,-109.75C79,-101.41 79,-88.74 79,-79.09" />
+<ns0:polygon fill="black" stroke="black" stroke-width="0.5" points="80.75,-79.09 79,-74.09 77.25,-79.09 80.75,-79.09" />
+</ns0:g>
+
+<ns0:g id="node4" class="node">
+<ns0:title>JobSearchGlassdoorExtractor</ns0:title>
+<ns0:g id="a_node4"><ns0:a ns1:href="../app.extractor.html#app.extractor.job_search_glassdoor_extractor.JobSearchGlassdoorExtractor" ns1:title="JobSearchGlassdoorExtractor" target="_top">
+<ns0:polygon fill="white" stroke="black" stroke-width="0.5" points="158,-19 0,-19 0,0 158,0 158,-19" />
+<ns0:text text-anchor="middle" x="79" y="-7" font-family="Vera Sans, DejaVu Sans, Liberation Sans, Arial, Helvetica, sans" font-size="10.00">JobSearchGlassdoorExtractor</ns0:text>
+</ns0:a>
+</ns0:g>
+</ns0:g>
+
+<ns0:g id="edge3" class="edge">
+<ns0:title>JobSearchExtractor-&gt;JobSearchGlassdoorExtractor</ns0:title>
+<ns0:path fill="none" stroke="black" stroke-width="0.5" d="M79,-54.75C79,-46.41 79,-33.74 79,-24.09" />
+<ns0:polygon fill="black" stroke="black" stroke-width="0.5" points="80.75,-24.09 79,-19.09 77.25,-24.09 80.75,-24.09" />
+</ns0:g>
+</ns0:g>
+</ns0:svg>

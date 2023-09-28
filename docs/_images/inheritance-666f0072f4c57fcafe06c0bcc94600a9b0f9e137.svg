@@ -1,0 +1,44 @@
+<ns0:svg xmlns:ns0="http://www.w3.org/2000/svg" xmlns:ns1="http://www.w3.org/1999/xlink" width="113pt" height="137pt" viewBox="0.00 0.00 113.00 137.00">
+<ns0:g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 133)">
+<ns0:title>inheritanceac652ec2bd</ns0:title>
+
+<ns0:g id="node1" class="node">
+<ns0:title>ABC</ns0:title>
+<ns0:g id="a_node1"><ns0:a ns1:title="Helper class that provides a standard way to create an ABC using">
+<ns0:polygon fill="white" stroke="black" stroke-width="0.5" points="79.5,-129 25.5,-129 25.5,-110 79.5,-110 79.5,-129" />
+<ns0:text text-anchor="middle" x="52.5" y="-117" font-family="Vera Sans, DejaVu Sans, Liberation Sans, Arial, Helvetica, sans" font-size="10.00">ABC</ns0:text>
+</ns0:a>
+</ns0:g>
+</ns0:g>
+
+<ns0:g id="node2" class="node">
+<ns0:title>BasePresenter</ns0:title>
+<ns0:g id="a_node2"><ns0:a ns1:href="../app.presenter.html#app.presenter.base_presenter.BasePresenter" ns1:title="BasePresenter" target="_top">
+<ns0:polygon fill="white" stroke="black" stroke-width="0.5" points="96,-74 9,-74 9,-55 96,-55 96,-74" />
+<ns0:text text-anchor="middle" x="52.5" y="-62" font-family="Vera Sans, DejaVu Sans, Liberation Sans, Arial, Helvetica, sans" font-size="10.00">BasePresenter</ns0:text>
+</ns0:a>
+</ns0:g>
+</ns0:g>
+
+<ns0:g id="edge1" class="edge">
+<ns0:title>ABC-&gt;BasePresenter</ns0:title>
+<ns0:path fill="none" stroke="black" stroke-width="0.5" d="M52.5,-109.75C52.5,-101.41 52.5,-88.74 52.5,-79.09" />
+<ns0:polygon fill="black" stroke="black" stroke-width="0.5" points="54.25,-79.09 52.5,-74.09 50.75,-79.09 54.25,-79.09" />
+</ns0:g>
+
+<ns0:g id="node3" class="node">
+<ns0:title>KeywordPresenter</ns0:title>
+<ns0:g id="a_node3"><ns0:a ns1:href="../app.presenter.html#app.presenter.keyword_presenter.KeywordPresenter" ns1:title="KeywordPresenter" target="_top">
+<ns0:polygon fill="white" stroke="black" stroke-width="0.5" points="105,-19 0,-19 0,0 105,0 105,-19" />
+<ns0:text text-anchor="middle" x="52.5" y="-7" font-family="Vera Sans, DejaVu Sans, Liberation Sans, Arial, Helvetica, sans" font-size="10.00">KeywordPresenter</ns0:text>
+</ns0:a>
+</ns0:g>
+</ns0:g>
+
+<ns0:g id="edge2" class="edge">
+<ns0:title>BasePresenter-&gt;KeywordPresenter</ns0:title>
+<ns0:path fill="none" stroke="black" stroke-width="0.5" d="M52.5,-54.75C52.5,-46.41 52.5,-33.74 52.5,-24.09" />
+<ns0:polygon fill="black" stroke="black" stroke-width="0.5" points="54.25,-24.09 52.5,-19.09 50.75,-24.09 54.25,-24.09" />
+</ns0:g>
+</ns0:g>
+</ns0:svg>

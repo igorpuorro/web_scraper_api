@@ -1,0 +1,25 @@
+app.app\_logger package
+=======================
+
+Submodules
+----------
+
+app.app\_logger.app\_logger module
+----------------------------------
+
+.. inheritance-diagram:: app.app_logger.app_logger
+   :parts: 1
+
+
+.. automodule:: app.app_logger.app_logger
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: app.app_logger
+   :members:
+   :undoc-members:
+   :show-inheritance:

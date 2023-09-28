@@ -17,7 +17,6 @@ class SeleniumConnector(BaseConnector):
     def __init__(self, app_config: AppConfig, cache: Union[None, BaseCache] = None):
         super().__init__(app_config, cache)
 
-        self.cache = cache
         self.chrome_path = app_config.get("chrome_path")
         self.chromedriver_path = app_config.get("chromedriver_path")
 

@@ -9,4 +9,4 @@ class BaseConnector(ABC):
     cache: Union[None, BaseCache]
 
     def __init__(self, app_config: AppConfig, cache: Union[None, BaseCache] = None):
-        pass
+        self.cache = cache

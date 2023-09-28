@@ -1,4 +1,5 @@
 import json
+import time
 
 from app.connector.selenium_connector import SeleniumConnector
 from app.handler.base_handler import BaseHandler
@@ -58,9 +59,15 @@ class SeleniumHandler(BaseHandler):
             if cached_content:
                 self.connector.driver.get("about:blank")
                 self.connector.driver.execute_script(
-                    "document.body.innerHTML = arguments[0];",
+                    "document.write(arguments[0]);",
                     cached_content
                 )
+                self.connector.driver.execute_script(
+                    "document.close();"
+                )
+
+                time.sleep(1)
+
             else:
                 self.retrieve_content()
 

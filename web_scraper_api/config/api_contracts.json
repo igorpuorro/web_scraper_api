@@ -1,4 +1,116 @@
 {
+    "/correios/enderecador/encomendas": {
+        "POST": {
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "remetente": {
+                        "type": "object",
+                        "properties": {
+                            "nome": {
+                                "type": "string"
+                            },
+                            "cpf_cnpj": {
+                                "type": "string"
+                            },
+                            "logradouro": {
+                                "type": "string"
+                            },
+                            "numero": {
+                                "type": "string"
+                            },
+                            "complemento": {
+                                "type": "string"
+                            },
+                            "bairro": {
+                                "type": "string"
+                            },
+                            "cidade": {
+                                "type": "string"
+                            },
+                            "estado": {
+                                "type": "string"
+                            },
+                            "cep": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "nome",
+                            "cpf_cnpj",
+                            "logradouro",
+                            "numero",
+                            "bairro",
+                            "cidade",
+                            "estado",
+                            "cep"
+                        ]
+                    },
+                    "destinatario": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                },
+                                "nome": {
+                                    "type": "string"
+                                },
+                                "cpf_cnpj": {
+                                    "type": "string"
+                                },
+                                "logradouro": {
+                                    "type": "string"
+                                },
+                                "numero": {
+                                    "type": "string"
+                                },
+                                "complemento": {
+                                    "type": "string"
+                                },
+                                "bairro": {
+                                    "type": "string"
+                                },
+                                "cidade": {
+                                    "type": "string"
+                                },
+                                "estado": {
+                                    "type": "string"
+                                },
+                                "cep": {
+                                    "type": "string"
+                                },
+                                "itens_declaracao_conteudo": {
+                                    "type": "array"
+                                },
+                                "peso_total": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "id",
+                                "nome",
+                                "cpf_cnpj",
+                                "logradouro",
+                                "numero",
+                                "bairro",
+                                "cidade",
+                                "estado",
+                                "cep",
+                                "itens_declaracao_conteudo",
+                                "peso_total"
+                            ]
+                        }
+                    }
+                },
+                "required": [
+                    "remetente",
+                    "destinatario"
+                ]
+            }
+        }
+    },
     "/keyword/match/summary": {
         "POST": {
             "schema": {

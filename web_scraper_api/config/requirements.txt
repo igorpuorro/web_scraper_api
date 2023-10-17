@@ -9,6 +9,7 @@ pandas
 pandas-stubs
 pickle5
 requests
+retrying
 selenium
 thefuzz
 types-Flask-Cors
@@ -17,4 +18,5 @@ types-beautifulsoup4
 types-colorama
 types-jsonschema
 types-requests
+types-retry
 uwsgi 

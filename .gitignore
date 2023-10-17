@@ -7,6 +7,7 @@ tools/sphinx/_build/
 tools/sphinx/*.rst
 !tools/sphinx/index.rst
 web_scraper_api/cache/
+web_scraper_api/download/
 web_scraper_api/log/
 web_scraper_api/screenshot/
 web_scraper_api/selenium/chrome-*

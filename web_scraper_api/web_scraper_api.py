@@ -12,6 +12,7 @@ from app.app_middleware.sanitize_validate_middleware import SanitizeValidateMidd
 from app.cache.filesystem_cache import FilesystemCache
 from app.connector.selenium_connector import SeleniumConnector
 
+from endpoint.correios_endpoints import blueprint_correios_endpoints
 from endpoint.keyword_endpoints import blueprint_keyword_endpoints
 
 
@@ -107,4 +108,5 @@ app = create_app()
 atexit.register(cleanup_function)
 CORS(app, origins=["*"])
 
+app.register_blueprint(blueprint_correios_endpoints)
 app.register_blueprint(blueprint_keyword_endpoints)

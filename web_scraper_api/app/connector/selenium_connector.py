@@ -1,4 +1,6 @@
-from typing import Union
+from typing import Dict, Union
+
+import os
 
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -10,35 +12,63 @@ from app.connector.base_connector import BaseConnector
 
 
 class SeleniumConnector(BaseConnector):
-    chrome_path: str
-    chromedriver_path: str
+    app_config: Dict[str, str]
     driver: webdriver.Chrome
 
     def __init__(self, app_config: AppConfig, cache: Union[None, BaseCache] = None):
         super().__init__(app_config, cache)
 
-        self.chrome_path = app_config.get("chrome_path")
-        self.chromedriver_path = app_config.get("chromedriver_path")
+        self.app_config = {
+            "chrome_path": os.path.abspath(
+                app_config.get("chrome_path")
+            ),
+            "chromedriver_path": os.path.abspath(
+                app_config.get("chromedriver_path")
+            ),
+            "chrome_download_default_directory": os.path.abspath(
+                app_config.get("chrome_download_default_directory")
+            ),
+            "javascript": os.path.abspath(
+                app_config.get("javascript_directory")
+            )
+        }
 
     def connect(self) -> None:
         try:
             chrome_options = Options()
             chrome_options.add_argument(
-                "--disable-blink-features=AutomationControlled")
-            chrome_options.add_argument('--disable-dev-shm-usage')
-            chrome_options.add_argument('--disable-extensions')
+                "--disable-blink-features=AutomationControlled"
+            )
+            chrome_options.add_argument("--disable-dev-shm-usage")
+            chrome_options.add_argument("--disable-extensions")
+            chrome_options.add_argument(
+                "--disable-features=EnableEphemeralFlashPermission"
+            )
             chrome_options.add_argument("--disable-gpu")
+            chrome_options.add_argument("--disable-infobars")
+            chrome_options.add_argument('--disable-plugins')
+            chrome_options.add_argument("--disable-popup-blocking")
+            chrome_options.add_argument("--disable-software-rasterizer")
             chrome_options.add_argument("--headless")
             chrome_options.add_argument("--no-sandbox")
             chrome_options.add_argument(
-                "--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36")
+                "--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36"
+            )
             chrome_prefs = {
-                "profile.default_content_setting_values": {"images": 0}
+                "download.default_directory": self.app_config.get("chrome_download_default_directory"),
+                "download.directory_upgrade": True,
+                "download.prompt_for_download": False,
+                "plugins.always_open_pdf_externally": True,
+                "profile.default_content_settings.popups": 2,
+                "profile.default_content_setting_values": {"images": 0},
+                "profile.default_content_setting_values.automatic_downloads": 2,
+                "safebrowsing.enabled": True
             }
             chrome_options.add_experimental_option("prefs", chrome_prefs)
-            chrome_options.binary_location = self.chrome_path
+            chrome_options.binary_location = self.app_config.get("chrome_path")
 
-            webdriver_service = Service(self.chromedriver_path)
+            webdriver_service = Service(
+                self.app_config.get("chromedriver_path"))
 
             self.driver = webdriver.Chrome(
                 service=webdriver_service,

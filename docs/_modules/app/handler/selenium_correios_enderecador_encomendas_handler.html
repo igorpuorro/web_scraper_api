@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>app.handler.selenium_correios_enderecador_encomendas_handler &mdash; Web Scraper API  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Web Scraper API
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">web_scraper_api</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Web Scraper API</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">app.handler.selenium_correios_enderecador_encomendas_handler</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for app.handler.selenium_correios_enderecador_encomendas_handler</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="kn">from</span> <span class="nn">retrying</span> <span class="kn">import</span> <span class="n">retry</span>
+
+<span class="kn">from</span> <span class="nn">selenium.webdriver.common.by</span> <span class="kn">import</span> <span class="n">By</span>
+<span class="kn">from</span> <span class="nn">selenium.webdriver.common.keys</span> <span class="kn">import</span> <span class="n">Keys</span>
+
+<span class="kn">from</span> <span class="nn">app.handler.selenium_handler</span> <span class="kn">import</span> <span class="n">SeleniumHandler</span>
+
+
+<div class="viewcode-block" id="SeleniumCorreiosEnderecadorEncomendasHandler">
+<a class="viewcode-back" href="../../../app.handler.html#app.handler.selenium_correios_enderecador_encomendas_handler.SeleniumCorreiosEnderecadorEncomendasHandler">[docs]</a>
+<span class="k">class</span> <span class="nc">SeleniumCorreiosEnderecadorEncomendasHandler</span><span class="p">(</span><span class="n">SeleniumHandler</span><span class="p">):</span>
+    <span class="nd">@retry</span><span class="p">(</span><span class="n">wait_fixed</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">stop_max_attempt_number</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_retrying_requests_get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SeleniumCorreiosEnderecadorEncomendasHandler.enderecador_encomendas">
+<a class="viewcode-back" href="../../../app.handler.html#app.handler.selenium_correios_enderecador_encomendas_handler.SeleniumCorreiosEnderecadorEncomendasHandler.enderecador_encomendas">[docs]</a>
+    <span class="k">def</span> <span class="nf">enderecador_encomendas</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">remetente</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">destinatario_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="n">chrome_download_default_directory</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">app_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="s2">&quot;chrome_download_default_directory&quot;</span>
+        <span class="p">)</span>
+
+        <span class="n">js_window_open_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">app_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;javascript&quot;</span><span class="p">),</span>
+            <span class="s2">&quot;correios_enderecador_encomendas.js&quot;</span>
+        <span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">js_window_open_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">js_file</span><span class="p">:</span>
+                <span class="n">js_window_open</span> <span class="o">=</span> <span class="n">js_file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+        <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;File &#39;</span><span class="si">{</span><span class="n">js_window_open_path</span><span class="si">}</span><span class="s2">&#39; not found.&quot;</span><span class="p">)</span>
+
+        <span class="n">xpath_copiar_remetente_anterior</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;2&quot;</span><span class="p">:</span> <span class="s2">&quot;/html/body/div[1]/div[3]/div[2]/div/div/div[2]/div[2]/div[2]/form/div[4]/div/p/a[2]&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;3&quot;</span><span class="p">:</span> <span class="s2">&quot;/html/body/div[1]/div[3]/div[2]/div/div/div[2]/div[2]/div[2]/form/div[6]/div/p/a[2]&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;4&quot;</span><span class="p">:</span> <span class="s2">&quot;/html/body/div[1]/div[3]/div[2]/div/div/div[2]/div[2]/div[2]/form/div[8]/div/p/a[2]&quot;</span>
+        <span class="p">}</span>
+
+        <span class="n">xpath_observacao</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;1&quot;</span><span class="p">:</span> <span class="s2">&quot;/html/body/div[1]/div[3]/div[2]/div/div/div[2]/div[2]/div[2]/form/div[3]/div/span[9]/label/textarea&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;2&quot;</span><span class="p">:</span> <span class="s2">&quot;/html/body/div[1]/div[3]/div[2]/div/div/div[2]/div[2]/div[2]/form/div[5]/div/span[9]/label/textarea&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;3&quot;</span><span class="p">:</span> <span class="s2">&quot;/html/body/div[1]/div[3]/div[2]/div/div/div[2]/div[2]/div[2]/form/div[7]/div/span[9]/label/textarea&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;4&quot;</span><span class="p">:</span> <span class="s2">&quot;/html/body/div[1]/div[3]/div[2]/div/div/div[2]/div[2]/div[2]/form/div[9]/div/span[9]/label/textarea&quot;</span>
+        <span class="p">}</span>
+
+        <span class="n">xpath_preencha_declaracao_conteudo</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;1&quot;</span><span class="p">:</span> <span class="s2">&quot;/html/body/div[1]/div[3]/div[2]/div/div/div[2]/div[2]/div[2]/form/div[3]/div/span[9]/label/li/a&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;2&quot;</span><span class="p">:</span> <span class="s2">&quot;/html/body/div[1]/div[3]/div[2]/div/div/div[2]/div[2]/div[2]/form/div[5]/div/span[9]/label/li/a&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;3&quot;</span><span class="p">:</span> <span class="s2">&quot;/html/body/div[1]/div[3]/div[2]/div/div/div[2]/div[2]/div[2]/form/div[7]/div/span[9]/label/li/a&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;4&quot;</span><span class="p">:</span> <span class="s2">&quot;/html/body/div[1]/div[3]/div[2]/div/div/div[2]/div[2]/div[2]/form/div[9]/div/span[9]/label/li/a&quot;</span>
+        <span class="p">}</span>
+
+        <span class="n">destinatario_id_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">pdf_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">destinatario</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">destinatario_list</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">index</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">remetente_cep</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span>
+                    <span class="n">By</span><span class="o">.</span><span class="n">XPATH</span><span class="p">,</span> <span class="s1">&#39;//*[@id=&quot;cep_1&quot;]&#39;</span>
+                <span class="p">)</span>
+                <span class="n">remetente_cep</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">remetente</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;cep&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
+                <span class="n">remetente_cep</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">Keys</span><span class="o">.</span><span class="n">TAB</span><span class="p">)</span>
+
+                <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+                <span class="n">remetente_nome</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span>
+                    <span class="n">By</span><span class="o">.</span><span class="n">XPATH</span><span class="p">,</span> <span class="s1">&#39;//*[@id=&quot;nome_1&quot;]&#39;</span>
+                <span class="p">)</span>
+                <span class="n">remetente_nome</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">remetente</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;nome&quot;</span><span class="p">))</span>
+
+                <span class="n">remetente_numero</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span>
+                    <span class="n">By</span><span class="o">.</span><span class="n">XPATH</span><span class="p">,</span> <span class="s1">&#39;//*[@id=&quot;numero_1&quot;]&#39;</span>
+                <span class="p">)</span>
+                <span class="n">remetente_numero</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">remetente</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;numero&quot;</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">copiar_remetente_anterior</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span>
+                    <span class="n">By</span><span class="o">.</span><span class="n">XPATH</span><span class="p">,</span> <span class="n">xpath_copiar_remetente_anterior</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">index</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+                <span class="n">copiar_remetente_anterior</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+
+            <span class="c1">##########</span>
+
+            <span class="n">destinatario_id_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">destinatario</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">))</span>
+
+            <span class="n">destinatario_cep</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span>
+                <span class="n">By</span><span class="o">.</span><span class="n">XPATH</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;//*[@id=&quot;desCep_</span><span class="si">{</span><span class="n">index</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s1">&quot;]&#39;</span>
+            <span class="p">)</span>
+            <span class="n">destinatario_cep</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span>
+                <span class="n">destinatario</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;cep&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
+            <span class="n">destinatario_cep</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">Keys</span><span class="o">.</span><span class="n">TAB</span><span class="p">)</span>
+
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+            <span class="n">destinatario_nome</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span>
+                <span class="n">By</span><span class="o">.</span><span class="n">XPATH</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;//*[@id=&quot;desNome_</span><span class="si">{</span><span class="n">index</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s1">&quot;]&#39;</span>
+            <span class="p">)</span>
+            <span class="n">destinatario_nome</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">destinatario</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;nome&quot;</span><span class="p">))</span>
+
+            <span class="n">destinatario_numero</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span>
+                <span class="n">By</span><span class="o">.</span><span class="n">XPATH</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;//*[@id=&quot;desNumero_</span><span class="si">{</span><span class="n">index</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s1">&quot;]&#39;</span>
+            <span class="p">)</span>
+            <span class="n">destinatario_numero</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">destinatario</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;numero&quot;</span><span class="p">))</span>
+
+            <span class="n">destinatario_complemento</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span>
+                <span class="n">By</span><span class="o">.</span><span class="n">XPATH</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;//*[@id=&quot;desComplemento_</span><span class="si">{</span><span class="n">index</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s1">&quot;]&#39;</span>
+            <span class="p">)</span>
+            <span class="n">destinatario_complemento</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">destinatario</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;complemento&quot;</span><span class="p">))</span>
+
+            <span class="n">observacao</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span>
+                <span class="n">By</span><span class="o">.</span><span class="n">XPATH</span><span class="p">,</span> <span class="n">xpath_observacao</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">index</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">observacao</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ID </span><span class="si">{</span><span class="n">destinatario</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+            <span class="n">preencha_declaracao_conteudo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span>
+                <span class="n">By</span><span class="o">.</span><span class="n">XPATH</span><span class="p">,</span> <span class="n">xpath_preencha_declaracao_conteudo</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">index</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">preencha_declaracao_conteudo</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+            <span class="c1">##########</span>
+
+            <span class="n">new_window_handle</span> <span class="o">=</span> <span class="kc">None</span>
+
+            <span class="k">while</span> <span class="ow">not</span> <span class="n">new_window_handle</span><span class="p">:</span>
+                <span class="n">new_window_handle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">window_handles</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">switch_to</span><span class="o">.</span><span class="n">window</span><span class="p">(</span><span class="n">new_window_handle</span><span class="p">)</span>
+
+            <span class="n">dc_remetente_cpf_cnpj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span>
+                <span class="n">By</span><span class="o">.</span><span class="n">XPATH</span><span class="p">,</span> <span class="s1">&#39;//*[@id=&quot;cnpjcpf&quot;]&#39;</span>
+            <span class="p">)</span>
+            <span class="n">dc_remetente_cpf_cnpj</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">remetente</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;cpf_cnpj&quot;</span><span class="p">))</span>
+
+            <span class="n">dc_destinatario_cpf_cnpj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span>
+                <span class="n">By</span><span class="o">.</span><span class="n">XPATH</span><span class="p">,</span> <span class="s1">&#39;//*[@id=&quot;desCnpjcpf&quot;]&#39;</span>
+            <span class="p">)</span>
+            <span class="n">dc_destinatario_cpf_cnpj</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">destinatario</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;cpf_cnpj&quot;</span><span class="p">))</span>
+
+            <span class="k">for</span> <span class="n">item_index</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">destinatario</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;itens_declaracao_conteudo&quot;</span><span class="p">)):</span>
+                <span class="n">dc_item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span>
+                    <span class="n">By</span><span class="o">.</span><span class="n">XPATH</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;//*[@id=&quot;item</span><span class="si">{</span><span class="n">item_index</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s1">&quot;]&#39;</span>
+                <span class="p">)</span>
+                <span class="n">dc_item</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">item_index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+
+                <span class="n">dc_conteudo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span>
+                    <span class="n">By</span><span class="o">.</span><span class="n">XPATH</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;//*[@id=&quot;cont</span><span class="si">{</span><span class="n">item_index</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s1">&quot;]&#39;</span>
+                <span class="p">)</span>
+                <span class="n">dc_conteudo</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;conteudo&quot;</span><span class="p">))</span>
+
+                <span class="n">dc_quantidade</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span>
+                    <span class="n">By</span><span class="o">.</span><span class="n">XPATH</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;//*[@id=&quot;quant</span><span class="si">{</span><span class="n">item_index</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s1">&quot;]&#39;</span>
+                <span class="p">)</span>
+                <span class="n">dc_quantidade</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;quantidade&quot;</span><span class="p">))</span>
+
+                <span class="n">dc_valor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span>
+                    <span class="n">By</span><span class="o">.</span><span class="n">XPATH</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;//*[@id=&quot;val</span><span class="si">{</span><span class="n">item_index</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s1">&quot;]&#39;</span>
+                <span class="p">)</span>
+                <span class="n">dc_valor</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;valor&quot;</span><span class="p">))</span>
+
+                <span class="c1"># Max. 6</span>
+                <span class="k">if</span> <span class="n">item_index</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
+                    <span class="k">break</span>
+
+            <span class="n">dc_peso_total</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span>
+                <span class="n">By</span><span class="o">.</span><span class="n">XPATH</span><span class="p">,</span> <span class="s1">&#39;//*[@id=&quot;pesototal&quot;]&#39;</span>
+            <span class="p">)</span>
+            <span class="n">dc_peso_total</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">destinatario</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;peso_total&quot;</span><span class="p">))</span>
+
+            <span class="n">dc_imprimir</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span>
+                <span class="n">By</span><span class="o">.</span><span class="n">XPATH</span><span class="p">,</span> <span class="s1">&#39;/html/body/div[1]/div[3]/div[2]/div/div/div[2]/div[2]/div[2]/table[4]/tbody/tr/td[1]/a&#39;</span>
+            <span class="p">)</span>
+
+            <span class="n">js_dc_imprimir_onclick</span> <span class="o">=</span> <span class="n">dc_imprimir</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s2">&quot;onclick&quot;</span><span class="p">)</span>
+
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+            <span class="n">pdf_url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">execute_script</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">                </span><span class="si">{</span><span class="n">js_window_open</span><span class="si">}</span>
+<span class="s2">                </span><span class="si">{</span><span class="n">js_dc_imprimir_onclick</span><span class="si">}</span>
+<span class="s2">                return openedUrl;</span>
+<span class="s2">            &quot;&quot;&quot;</span><span class="p">)</span>
+
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+            <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_retrying_requests_get</span><span class="p">(</span><span class="n">pdf_url</span><span class="p">)</span>
+
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+                <span class="n">current_filename</span> <span class="o">=</span> <span class="s2">&quot;formDeclaracao.pdf&quot;</span>
+                <span class="n">current_filename_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                    <span class="n">chrome_download_default_directory</span><span class="p">,</span>
+                    <span class="n">current_filename</span>
+                <span class="p">)</span>
+
+                <span class="n">new_filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Declaracao_Conteudo-</span><span class="si">{</span><span class="n">destinatario</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">.pdf&quot;</span>
+                <span class="n">new_filename_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                    <span class="n">chrome_download_default_directory</span><span class="p">,</span>
+                    <span class="n">new_filename</span>
+                <span class="p">)</span>
+
+                <span class="c1"># Headless Mode</span>
+                <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">current_filename_path</span><span class="p">):</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                        <span class="n">os</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">current_filename_path</span><span class="p">,</span> <span class="n">new_filename_path</span><span class="p">)</span>
+
+                    <span class="k">except</span> <span class="ne">FileExistsError</span><span class="p">:</span>
+                        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">new_filename_path</span><span class="p">)</span>
+                        <span class="n">os</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">current_filename_path</span><span class="p">,</span> <span class="n">new_filename_path</span><span class="p">)</span>
+                <span class="c1"># Non-headless Mode</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">new_filename_path</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">pdf_file</span><span class="p">:</span>
+                        <span class="n">pdf_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+
+                <span class="n">pdf_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">new_filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">switch_to</span><span class="o">.</span><span class="n">window</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">window_handles</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="p">)</span>
+
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="n">gerar_etiquetas</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span>
+            <span class="n">By</span><span class="o">.</span><span class="n">XPATH</span><span class="p">,</span> <span class="s1">&#39;//*[@id=&quot;btGerarEtiquetas&quot;]&#39;</span>
+        <span class="p">)</span>
+        <span class="n">gerar_etiquetas</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">window_handles</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="c1"># Switch to the new window</span>
+            <span class="n">new_window_handle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">window_handles</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">switch_to</span><span class="o">.</span><span class="n">window</span><span class="p">(</span><span class="n">new_window_handle</span><span class="p">)</span>
+
+            <span class="c1"># Close the new window</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+            <span class="c1"># Switch back to the original window</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">switch_to</span><span class="o">.</span><span class="n">window</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">window_handles</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="p">)</span>
+
+        <span class="n">destinatario_id_string</span> <span class="o">=</span> <span class="s2">&quot;_&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">destinatario_id_list</span><span class="p">)</span>
+
+        <span class="n">current_filename</span> <span class="o">=</span> <span class="s2">&quot;Encomenda.pdf&quot;</span>
+        <span class="n">current_filename_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="n">chrome_download_default_directory</span><span class="p">,</span>
+            <span class="n">current_filename</span>
+        <span class="p">)</span>
+
+        <span class="n">new_filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Encomenda-</span><span class="si">{</span><span class="n">destinatario_id_string</span><span class="si">}</span><span class="s2">.pdf&quot;</span>
+        <span class="n">new_filename_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="n">chrome_download_default_directory</span><span class="p">,</span>
+            <span class="n">new_filename</span>
+        <span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">current_filename_path</span><span class="p">,</span> <span class="n">new_filename_path</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">FileExistsError</span><span class="p">:</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">new_filename_path</span><span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">current_filename_path</span><span class="p">,</span> <span class="n">new_filename_path</span><span class="p">)</span>
+
+        <span class="n">pdf_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">new_filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">pdf_list</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Igor Puorro.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

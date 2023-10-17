@@ -16,6 +16,30 @@ app.handler.base\_handler module
    :undoc-members:
    :show-inheritance:
 
+app.handler.selenium\_correios\_enderecador\_encomendas\_handler module
+-----------------------------------------------------------------------
+
+.. inheritance-diagram:: app.handler.selenium_correios_enderecador_encomendas_handler
+   :parts: 1
+
+
+.. automodule:: app.handler.selenium_correios_enderecador_encomendas_handler
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+app.handler.selenium\_correios\_handler\_factory module
+-------------------------------------------------------
+
+.. inheritance-diagram:: app.handler.selenium_correios_handler_factory
+   :parts: 1
+
+
+.. automodule:: app.handler.selenium_correios_handler_factory
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 app.handler.selenium\_handler module
 ------------------------------------
 

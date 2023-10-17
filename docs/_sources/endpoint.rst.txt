@@ -4,6 +4,18 @@ endpoint package
 Submodules
 ----------
 
+endpoint.correios\_endpoints module
+-----------------------------------
+
+.. inheritance-diagram:: endpoint.correios_endpoints
+   :parts: 1
+
+
+.. automodule:: endpoint.correios_endpoints
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 endpoint.keyword\_endpoints module
 ----------------------------------
 

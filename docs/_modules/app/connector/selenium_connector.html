@@ -71,7 +71,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for app.connector.selenium_connector</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
 
 <span class="kn">from</span> <span class="nn">selenium</span> <span class="kn">import</span> <span class="n">webdriver</span>
 <span class="kn">from</span> <span class="nn">selenium.webdriver.chrome.service</span> <span class="kn">import</span> <span class="n">Service</span>
@@ -85,15 +87,26 @@
 <div class="viewcode-block" id="SeleniumConnector">
 <a class="viewcode-back" href="../../../app.connector.html#app.connector.selenium_connector.SeleniumConnector">[docs]</a>
 <span class="k">class</span> <span class="nc">SeleniumConnector</span><span class="p">(</span><span class="n">BaseConnector</span><span class="p">):</span>
-    <span class="n">chrome_path</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">chromedriver_path</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">app_config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span>
     <span class="n">driver</span><span class="p">:</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">Chrome</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app_config</span><span class="p">:</span> <span class="n">AppConfig</span><span class="p">,</span> <span class="n">cache</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="n">BaseCache</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">app_config</span><span class="p">,</span> <span class="n">cache</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">chrome_path</span> <span class="o">=</span> <span class="n">app_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;chrome_path&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">chromedriver_path</span> <span class="o">=</span> <span class="n">app_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;chromedriver_path&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app_config</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;chrome_path&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span>
+                <span class="n">app_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;chrome_path&quot;</span><span class="p">)</span>
+            <span class="p">),</span>
+            <span class="s2">&quot;chromedriver_path&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span>
+                <span class="n">app_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;chromedriver_path&quot;</span><span class="p">)</span>
+            <span class="p">),</span>
+            <span class="s2">&quot;chrome_download_default_directory&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span>
+                <span class="n">app_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;chrome_download_default_directory&quot;</span><span class="p">)</span>
+            <span class="p">),</span>
+            <span class="s2">&quot;javascript&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span>
+                <span class="n">app_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;javascript_directory&quot;</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">}</span>
 
 <div class="viewcode-block" id="SeleniumConnector.connect">
 <a class="viewcode-back" href="../../../app.connector.html#app.connector.selenium_connector.SeleniumConnector.connect">[docs]</a>
@@ -101,21 +114,38 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="n">chrome_options</span> <span class="o">=</span> <span class="n">Options</span><span class="p">()</span>
             <span class="n">chrome_options</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
-                <span class="s2">&quot;--disable-blink-features=AutomationControlled&quot;</span><span class="p">)</span>
-            <span class="n">chrome_options</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--disable-dev-shm-usage&#39;</span><span class="p">)</span>
-            <span class="n">chrome_options</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--disable-extensions&#39;</span><span class="p">)</span>
+                <span class="s2">&quot;--disable-blink-features=AutomationControlled&quot;</span>
+            <span class="p">)</span>
+            <span class="n">chrome_options</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--disable-dev-shm-usage&quot;</span><span class="p">)</span>
+            <span class="n">chrome_options</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--disable-extensions&quot;</span><span class="p">)</span>
+            <span class="n">chrome_options</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+                <span class="s2">&quot;--disable-features=EnableEphemeralFlashPermission&quot;</span>
+            <span class="p">)</span>
             <span class="n">chrome_options</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--disable-gpu&quot;</span><span class="p">)</span>
+            <span class="n">chrome_options</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--disable-infobars&quot;</span><span class="p">)</span>
+            <span class="n">chrome_options</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--disable-plugins&#39;</span><span class="p">)</span>
+            <span class="n">chrome_options</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--disable-popup-blocking&quot;</span><span class="p">)</span>
+            <span class="n">chrome_options</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--disable-software-rasterizer&quot;</span><span class="p">)</span>
             <span class="n">chrome_options</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--headless&quot;</span><span class="p">)</span>
             <span class="n">chrome_options</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--no-sandbox&quot;</span><span class="p">)</span>
             <span class="n">chrome_options</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
-                <span class="s2">&quot;--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36&quot;</span><span class="p">)</span>
+                <span class="s2">&quot;--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36&quot;</span>
+            <span class="p">)</span>
             <span class="n">chrome_prefs</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="s2">&quot;profile.default_content_setting_values&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;images&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+                <span class="s2">&quot;download.default_directory&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">app_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;chrome_download_default_directory&quot;</span><span class="p">),</span>
+                <span class="s2">&quot;download.directory_upgrade&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+                <span class="s2">&quot;download.prompt_for_download&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                <span class="s2">&quot;plugins.always_open_pdf_externally&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+                <span class="s2">&quot;profile.default_content_settings.popups&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+                <span class="s2">&quot;profile.default_content_setting_values&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;images&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
+                <span class="s2">&quot;profile.default_content_setting_values.automatic_downloads&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+                <span class="s2">&quot;safebrowsing.enabled&quot;</span><span class="p">:</span> <span class="kc">True</span>
             <span class="p">}</span>
             <span class="n">chrome_options</span><span class="o">.</span><span class="n">add_experimental_option</span><span class="p">(</span><span class="s2">&quot;prefs&quot;</span><span class="p">,</span> <span class="n">chrome_prefs</span><span class="p">)</span>
-            <span class="n">chrome_options</span><span class="o">.</span><span class="n">binary_location</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">chrome_path</span>
+            <span class="n">chrome_options</span><span class="o">.</span><span class="n">binary_location</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;chrome_path&quot;</span><span class="p">)</span>
 
-            <span class="n">webdriver_service</span> <span class="o">=</span> <span class="n">Service</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">chromedriver_path</span><span class="p">)</span>
+            <span class="n">webdriver_service</span> <span class="o">=</span> <span class="n">Service</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">app_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;chromedriver_path&quot;</span><span class="p">))</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">driver</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">Chrome</span><span class="p">(</span>
                 <span class="n">service</span><span class="o">=</span><span class="n">webdriver_service</span><span class="p">,</span>

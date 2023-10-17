@@ -1,0 +1,59 @@
+<ns0:svg xmlns:ns0="http://www.w3.org/2000/svg" xmlns:ns1="http://www.w3.org/1999/xlink" width="272pt" height="192pt" viewBox="0.00 0.00 272.00 192.00">
+<ns0:g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 188)">
+<ns0:title>inheritancecc14d4e1b4</ns0:title>
+
+<ns0:g id="node1" class="node">
+<ns0:title>ABC</ns0:title>
+<ns0:g id="a_node1"><ns0:a ns1:title="Helper class that provides a standard way to create an ABC using">
+<ns0:polygon fill="white" stroke="black" stroke-width="0.5" points="159,-184 105,-184 105,-165 159,-165 159,-184" />
+<ns0:text text-anchor="middle" x="132" y="-172" font-family="Vera Sans, DejaVu Sans, Liberation Sans, Arial, Helvetica, sans" font-size="10.00">ABC</ns0:text>
+</ns0:a>
+</ns0:g>
+</ns0:g>
+
+<ns0:g id="node2" class="node">
+<ns0:title>BaseHandler</ns0:title>
+<ns0:g id="a_node2"><ns0:a ns1:href="../app.handler.html#app.handler.base_handler.BaseHandler" ns1:title="BaseHandler" target="_top">
+<ns0:polygon fill="white" stroke="black" stroke-width="0.5" points="171.5,-129 92.5,-129 92.5,-110 171.5,-110 171.5,-129" />
+<ns0:text text-anchor="middle" x="132" y="-117" font-family="Vera Sans, DejaVu Sans, Liberation Sans, Arial, Helvetica, sans" font-size="10.00">BaseHandler</ns0:text>
+</ns0:a>
+</ns0:g>
+</ns0:g>
+
+<ns0:g id="edge1" class="edge">
+<ns0:title>ABC-&gt;BaseHandler</ns0:title>
+<ns0:path fill="none" stroke="black" stroke-width="0.5" d="M132,-164.75C132,-156.41 132,-143.74 132,-134.09" />
+<ns0:polygon fill="black" stroke="black" stroke-width="0.5" points="133.75,-134.09 132,-129.09 130.25,-134.09 133.75,-134.09" />
+</ns0:g>
+
+<ns0:g id="node4" class="node">
+<ns0:title>SeleniumHandler</ns0:title>
+<ns0:g id="a_node4"><ns0:a ns1:href="../app.handler.html#app.handler.selenium_handler.SeleniumHandler" ns1:title="SeleniumHandler" target="_top">
+<ns0:polygon fill="white" stroke="black" stroke-width="0.5" points="182.5,-74 81.5,-74 81.5,-55 182.5,-55 182.5,-74" />
+<ns0:text text-anchor="middle" x="132" y="-62" font-family="Vera Sans, DejaVu Sans, Liberation Sans, Arial, Helvetica, sans" font-size="10.00">SeleniumHandler</ns0:text>
+</ns0:a>
+</ns0:g>
+</ns0:g>
+
+<ns0:g id="edge3" class="edge">
+<ns0:title>BaseHandler-&gt;SeleniumHandler</ns0:title>
+<ns0:path fill="none" stroke="black" stroke-width="0.5" d="M132,-109.75C132,-101.41 132,-88.74 132,-79.09" />
+<ns0:polygon fill="black" stroke="black" stroke-width="0.5" points="133.75,-79.09 132,-74.09 130.25,-79.09 133.75,-79.09" />
+</ns0:g>
+
+<ns0:g id="node3" class="node">
+<ns0:title>SeleniumCorreiosEnderecadorEncomendasHandler</ns0:title>
+<ns0:g id="a_node3"><ns0:a ns1:href="../app.handler.html#app.handler.selenium_correios_enderecador_encomendas_handler.SeleniumCorreiosEnderecadorEncomendasHandler" ns1:title="SeleniumCorreiosEnderecadorEncomendasHandler" target="_top">
+<ns0:polygon fill="white" stroke="black" stroke-width="0.5" points="264,-19 0,-19 0,0 264,0 264,-19" />
+<ns0:text text-anchor="middle" x="132" y="-7" font-family="Vera Sans, DejaVu Sans, Liberation Sans, Arial, Helvetica, sans" font-size="10.00">SeleniumCorreiosEnderecadorEncomendasHandler</ns0:text>
+</ns0:a>
+</ns0:g>
+</ns0:g>
+
+<ns0:g id="edge2" class="edge">
+<ns0:title>SeleniumHandler-&gt;SeleniumCorreiosEnderecadorEncomendasHandler</ns0:title>
+<ns0:path fill="none" stroke="black" stroke-width="0.5" d="M132,-54.75C132,-46.41 132,-33.74 132,-24.09" />
+<ns0:polygon fill="black" stroke="black" stroke-width="0.5" points="133.75,-24.09 132,-19.09 130.25,-24.09 133.75,-24.09" />
+</ns0:g>
+</ns0:g>
+</ns0:svg>

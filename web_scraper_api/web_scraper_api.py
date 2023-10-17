@@ -13,6 +13,7 @@ from app.cache.filesystem_cache import FilesystemCache
 from app.connector.selenium_connector import SeleniumConnector
 
 from endpoint.correios_endpoints import blueprint_correios_endpoints
+from endpoint.download_endpoints import blueprint_download_endpoints
 from endpoint.keyword_endpoints import blueprint_keyword_endpoints
 
 
@@ -109,4 +110,5 @@ atexit.register(cleanup_function)
 CORS(app, origins=["*"])
 
 app.register_blueprint(blueprint_correios_endpoints)
+app.register_blueprint(blueprint_download_endpoints)
 app.register_blueprint(blueprint_keyword_endpoints)

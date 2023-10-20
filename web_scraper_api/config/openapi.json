@@ -1,0 +1,209 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Web Scraper API",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/correios/enderecador/encomendas": {
+            "post": {
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "remetente": {
+                                        "type": "object",
+                                        "properties": {
+                                            "nome": {
+                                                "type": "string"
+                                            },
+                                            "cpf_cnpj": {
+                                                "type": "string"
+                                            },
+                                            "logradouro": {
+                                                "type": "string"
+                                            },
+                                            "numero": {
+                                                "type": "string"
+                                            },
+                                            "complemento": {
+                                                "type": "string"
+                                            },
+                                            "bairro": {
+                                                "type": "string"
+                                            },
+                                            "cidade": {
+                                                "type": "string"
+                                            },
+                                            "estado": {
+                                                "type": "string"
+                                            },
+                                            "cep": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "nome",
+                                            "cpf_cnpj",
+                                            "logradouro",
+                                            "numero",
+                                            "complemento",
+                                            "bairro",
+                                            "cidade",
+                                            "estado",
+                                            "cep"
+                                        ]
+                                    },
+                                    "destinatario": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "string"
+                                                },
+                                                "nome": {
+                                                    "type": "string"
+                                                },
+                                                "cpf_cnpj": {
+                                                    "type": "string"
+                                                },
+                                                "logradouro": {
+                                                    "type": "string"
+                                                },
+                                                "numero": {
+                                                    "type": "string"
+                                                },
+                                                "complemento": {
+                                                    "type": "string"
+                                                },
+                                                "bairro": {
+                                                    "type": "string"
+                                                },
+                                                "cidade": {
+                                                    "type": "string"
+                                                },
+                                                "estado": {
+                                                    "type": "string"
+                                                },
+                                                "cep": {
+                                                    "type": "string"
+                                                },
+                                                "itens_declaracao_conteudo": {
+                                                    "type": "array"
+                                                },
+                                                "peso_total": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "required": [
+                                                "id",
+                                                "nome",
+                                                "cpf_cnpj",
+                                                "logradouro",
+                                                "numero",
+                                                "complemento",
+                                                "bairro",
+                                                "cidade",
+                                                "estado",
+                                                "cep",
+                                                "itens_declaracao_conteudo",
+                                                "peso_total"
+                                            ]
+                                        }
+                                    }
+                                },
+                                "required": [
+                                    "remetente",
+                                    "destinatario"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/download/{filename}": {
+            "get": {
+                "parameters": [
+                    {
+                        "name": "filename",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "delete": {
+                "parameters": [
+                    {
+                        "name": "filename",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            }
+        },
+        "/keyword/match/summary": {
+            "post": {
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "url": {
+                                        "type": "string",
+                                        "format": "uri"
+                                    },
+                                    "keywords": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "threshold": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "url",
+                                    "keywords"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        }
+    }
+}

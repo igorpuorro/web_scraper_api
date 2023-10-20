@@ -21,7 +21,7 @@ class SeleniumCorreiosEnderecadorEncomendasHandler(SeleniumHandler):
         )
 
         js_window_open_path = os.path.join(
-            self.connector.app_config.get("javascript"),
+            self.connector.app_config.get("javascript_directory"),
             "correios_enderecador_encomendas.js"
         )
 

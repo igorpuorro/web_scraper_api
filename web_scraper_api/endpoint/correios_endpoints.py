@@ -6,11 +6,14 @@ from werkzeug.exceptions import BadRequest
 from flask import Blueprint, current_app, jsonify, request
 
 from app.handler.selenium_correios_handler_factory import SeleniumCorreiosHandlerFactory
+from app.openapi import openapi
+
 
 blueprint_correios_endpoints = Blueprint("correios", __name__)
 
 
 @blueprint_correios_endpoints.route("/correios/enderecador/encomendas", methods=["POST"])
+@openapi
 def endpoint_post_correios_enderecador_encomendas():
     try:
         request_data_latin1 = request.data.decode("utf-8").encode("latin-1")

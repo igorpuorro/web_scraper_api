@@ -18,20 +18,7 @@ class SeleniumConnector(BaseConnector):
     def __init__(self, app_config: AppConfig, cache: Union[None, BaseCache] = None):
         super().__init__(app_config, cache)
 
-        self.app_config = {
-            "chrome_path": os.path.abspath(
-                app_config.get("chrome_path")
-            ),
-            "chromedriver_path": os.path.abspath(
-                app_config.get("chromedriver_path")
-            ),
-            "chrome_download_default_directory": os.path.abspath(
-                app_config.get("chrome_download_default_directory")
-            ),
-            "javascript": os.path.abspath(
-                app_config.get("javascript_directory")
-            )
-        }
+        self.app_config = app_config
 
     def connect(self) -> None:
         try:

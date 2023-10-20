@@ -8,17 +8,20 @@ from flask import Blueprint, current_app, jsonify, request
 from app.extractor.job_search_extractor_factory import JobSearchExtractorFactory
 from app.handler.selenium_job_search_handler_factory import SeleniumJobSearchHandlerFactory
 from app.matching.advanced_matching import AdvancedMatching
+from app.openapi import openapi
 from app.presenter.keyword_presenter import KeywordPresenter
+
 
 blueprint_keyword_endpoints = Blueprint("keyword", __name__)
 
 
 @blueprint_keyword_endpoints.route("/keyword/match/summary", methods=["POST"])
+@openapi
 def endpoint_post_keyword_match_summary():
     try:
         request_data: Dict[str, str] = request.json
         url: str = request_data.get("url", "")
-        keywords: List[str] = json.loads(request_data.get("keywords", "[]"))
+        keywords: List[str] = request_data.get("keywords", "[]")
         threshold: str = request_data.get("threshold", "")
 
         selenium_job_search_handler = SeleniumJobSearchHandlerFactory.create(

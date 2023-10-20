@@ -11,6 +11,12 @@ class AppConfig:
         self.app_name = app_name
 
         config = self._load_json(config_file_path)
+
+        app_config = config.get(app_name, {})
+        for key, value in app_config.items():
+            if "_directory" in key or "_path" in key:
+                app_config.update({f"{key}": os.path.abspath(value)})
+
         current_app.config.update(config)
 
         self._create_directories(app_name)

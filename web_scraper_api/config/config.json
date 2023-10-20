@@ -1,9 +1,10 @@
 {
     "DEBUG": true,
+    "SEND_FILE_MAX_AGE_DEFAULT": 0,
     "web_scraper_api": {
-        "log_level": "INFO",
+        "log_level": "DEBUG",
         "log_directory": "log",
-        "api_contracts_path": "config/api_contracts.json",
+        "openapi_path": "config/openapi.json",
         "javascript_directory": "javascript",
         "cache_directory": "cache",
         "screenshot_directory": "screenshot",

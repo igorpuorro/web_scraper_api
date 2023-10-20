@@ -17,23 +17,24 @@ def main():
     data_url = sys.argv[2]
     data_keywords_yaml = sys.argv[3]
 
-    with open(data_keywords_yaml, "r", encoding="utf-8") as yaml_file:
-        yaml_content = yaml.safe_load(yaml_file)
-
-    request_data = {
-        "url": data_url,
-        "keywords": json.dumps(yaml_content["keywords"]),
-    }
-
-    request_data_json = json.dumps(request_data)
-
     headers = {
         "Content-Type": "application/json",
     }
 
+    with open(data_keywords_yaml, "r", encoding="utf-8") as yaml_file:
+        yaml_content = yaml.safe_load(yaml_file)
+
+    keywords = yaml_content["keywords"]
+
+    request_data = {
+        "url": data_url,
+        "keywords": keywords,
+    }
+
     try:
         response = requests.post(
-            endpoint, headers=headers, data=request_data_json, timeout=20)
+            endpoint, headers=headers, json=request_data, timeout=60
+        )
         response.raise_for_status()
         response_data = response.json()
 

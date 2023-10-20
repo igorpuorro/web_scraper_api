@@ -89,15 +89,6 @@ def create_app():
 
             getattr(app_instance, "selenium_connector").connect()
 
-            setattr(
-                app_instance,
-                "wsgi_app",
-                SanitizeValidateMiddleware(
-                    getattr(app_instance, "app_config"),
-                    getattr(app_instance, "wsgi_app")
-                )
-            )
-
     except Exception as error:
         raise RuntimeError(error) from error
 

@@ -5,10 +5,10 @@ import os
 from flask import Flask
 from flask_cors import CORS
 import nltk
+from swagger_ui import api_doc
 
 from app.app_config.app_config import AppConfig
 from app.app_logger.app_logger import AppLogger
-from app.app_middleware.sanitize_validate_middleware import SanitizeValidateMiddleware
 from app.cache.filesystem_cache import FilesystemCache
 from app.connector.selenium_connector import SeleniumConnector
 
@@ -64,8 +64,6 @@ def create_app():
             if not hasattr(app_instance, "app_config"):
                 raise RuntimeError("Failed to create AppConfig")
 
-            nltk_download_punkt()
-
             setattr(
                 app_instance,
                 "app_logger",
@@ -74,6 +72,18 @@ def create_app():
 
             if not hasattr(app_instance, "app_logger"):
                 raise RuntimeError("Failed to create Logger")
+
+            openapi_path = getattr(
+                app_instance, "app_config").get("openapi_path")
+
+            api_doc(
+                app_instance,
+                config_path=f"{openapi_path}",
+                url_prefix="/api/doc",
+                title="Web Scraper API"
+            )
+
+            nltk_download_punkt()
 
             setattr(
                 app_instance,

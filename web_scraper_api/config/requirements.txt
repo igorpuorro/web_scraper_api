@@ -5,12 +5,14 @@ flask_cors
 jsonschema
 langdetect
 nltk
+openapi-core
 pandas
 pandas-stubs
 pickle5
 requests
 retrying
 selenium
+swagger-ui-py
 thefuzz
 types-Flask-Cors
 types-PyYAML

@@ -2,6 +2,7 @@ import os
 
 from flask import Blueprint, current_app, jsonify, send_file
 
+
 blueprint_download_endpoints = Blueprint("download", __name__)
 
 

@@ -1,7 +1,5 @@
 from typing import Dict, List
 
-import json
-
 from werkzeug.exceptions import BadRequest
 from flask import Blueprint, current_app, jsonify, request
 

@@ -53,7 +53,7 @@ class SeleniumCorreiosEnderecadorEncomendasHandler(SeleniumHandler):
         }
 
         destinatario_id_list = []
-        pdf_list = []
+        file_list = []
 
         for index, destinatario in enumerate(destinatario_list):
             if index == 0:
@@ -220,7 +220,12 @@ class SeleniumCorreiosEnderecadorEncomendasHandler(SeleniumHandler):
                     with open(new_filename_path, "wb") as pdf_file:
                         pdf_file.write(response.content)
 
-                pdf_list.append(f"{new_filename}")
+                file_list_item = {
+                    "filename": f"{new_filename}",
+                    "timestamp": f"{os.path.getctime(new_filename_path)}"
+                }
+
+                file_list.append(file_list_item)
 
             self.connector.driver.close()
 
@@ -271,6 +276,11 @@ class SeleniumCorreiosEnderecadorEncomendasHandler(SeleniumHandler):
             os.remove(new_filename_path)
             os.replace(current_filename_path, new_filename_path)
 
-        pdf_list.append(f"{new_filename}")
+        file_list_item = {
+            "filename": f"{new_filename}",
+            "timestamp": f"{os.path.getctime(new_filename_path)}"
+        }
 
-        return pdf_list
+        file_list.append(file_list_item)
+
+        return file_list

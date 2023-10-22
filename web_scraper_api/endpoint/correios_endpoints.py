@@ -34,12 +34,12 @@ def endpoint_post_correios_enderecador_encomendas():
 
         selenium_correios_enderecador_encomendas_handler.retrieve_content()
 
-        pdf_list = selenium_correios_enderecador_encomendas_handler.enderecador_encomendas(
+        file_list = selenium_correios_enderecador_encomendas_handler.enderecador_encomendas(
             remetente, destinatario
         )
 
         response_data = {
-            "pdf_list": pdf_list
+            "file_list": file_list
         }
 
         response = jsonify(response_data)

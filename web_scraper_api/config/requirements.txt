@@ -2,7 +2,6 @@ PyYAML
 bs4
 flask
 flask_cors
-jsonschema
 langdetect
 nltk
 openapi-core

@@ -129,17 +129,17 @@ When the ```--chrome-version``` option is used along with ```latest``` as an arg
 https://googlechromelabs.github.io/chrome-for-testing/
 
 ```
-    web_scraper_api/tools/cft_download_tools.py --chrome-version latest --platform linux64 --download web_scraper_api/web_scraper_api/selenium/ --unzip
+    python3 tools/cft_download_tools.py --chrome-version latest --platform linux64 --download web_scraper_api/selenium/ --unzip
 ```
 
 7\. Change to the App directory:
 
 ```
-    cd web_scraper_api/web_scraper_api
+    cd web_scraper_api
 ```
 
 8\. Start the App running uWSGI:
 
 ```
-    uwsgi --ini config/uwsgi.ini
+    uwsgi --ini config/uwsgi_prod.ini
 ```

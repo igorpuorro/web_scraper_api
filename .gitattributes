@@ -1,3 +1,2 @@
 * text=lf
-*.sh -text
-/tools/* -text
+tools/* -text

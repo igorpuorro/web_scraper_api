@@ -101,7 +101,7 @@
                                                                 "type": "string"
                                                             },
                                                             "quantidade": {
-                                                                "type": "string"
+                                                                "type": "integer"
                                                             },
                                                             "valor": {
                                                                 "type": "string"

@@ -93,7 +93,21 @@
                                                     "type": "string"
                                                 },
                                                 "itens_declaracao_conteudo": {
-                                                    "type": "array"
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "conteudo": {
+                                                                "type": "string"
+                                                            },
+                                                            "quantidade": {
+                                                                "type": "string"
+                                                            },
+                                                            "valor": {
+                                                                "type": "string"
+                                                            }
+                                                        }
+                                                    }
                                                 },
                                                 "peso_total": {
                                                     "type": "string"

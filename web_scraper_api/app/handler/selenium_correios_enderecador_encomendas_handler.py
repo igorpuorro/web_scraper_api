@@ -144,6 +144,10 @@ class SeleniumCorreiosEnderecadorEncomendasHandler(SeleniumHandler):
             dc_destinatario_cpf_cnpj.send_keys(destinatario.get("cpf_cnpj"))
 
             for item_index, item in enumerate(destinatario.get("itens_declaracao_conteudo")):
+                # Max. 6
+                if item_index == 5:
+                    break
+
                 dc_item = self.connector.driver.find_element(
                     By.XPATH, f'//*[@id="item{item_index + 1}"]'
                 )
@@ -163,10 +167,6 @@ class SeleniumCorreiosEnderecadorEncomendasHandler(SeleniumHandler):
                     By.XPATH, f'//*[@id="val{item_index + 1}"]'
                 )
                 dc_valor.send_keys(item.get("valor"))
-
-                # Max. 6
-                if item_index == 5:
-                    break
 
             dc_peso_total = self.connector.driver.find_element(
                 By.XPATH, '//*[@id="pesototal"]'

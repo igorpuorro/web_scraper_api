@@ -158,15 +158,22 @@ class SeleniumCorreiosEnderecadorEncomendasHandler(SeleniumHandler):
                 )
                 dc_conteudo.send_keys(item.get("conteudo"))
 
+                item_quantidade = item.get("quantidade")
+
                 dc_quantidade = self.connector.driver.find_element(
                     By.XPATH, f'//*[@id="quant{item_index + 1}"]'
                 )
-                dc_quantidade.send_keys(item.get("quantidade"))
+                dc_quantidade.send_keys(item_quantidade)
+
+                item_valor = item.get("valor")
+                item_subtotal = str(
+                    int(item_quantidade) * float(item_valor)
+                ).replace(".", ",")
 
                 dc_valor = self.connector.driver.find_element(
                     By.XPATH, f'//*[@id="val{item_index + 1}"]'
                 )
-                dc_valor.send_keys(item.get("valor"))
+                dc_valor.send_keys(item_subtotal)
 
             dc_peso_total = self.connector.driver.find_element(
                 By.XPATH, '//*[@id="pesototal"]'

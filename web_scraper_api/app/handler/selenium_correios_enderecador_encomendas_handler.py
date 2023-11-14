@@ -1,6 +1,7 @@
 import os
 import requests
 import time
+import unicodedata
 
 from retrying import retry
 
@@ -84,13 +85,14 @@ class SeleniumCorreiosEnderecadorEncomendasHandler(SeleniumHandler):
 
             ##########
 
-            destinatario_id_list.append(destinatario.get("id"))
+            destinatario_id_list.append(destinatario.get("id", ""))
 
             destinatario_cep = self.connector.driver.find_element(
                 By.XPATH, f'//*[@id="desCep_{index + 1}"]'
             )
             destinatario_cep.send_keys(
-                destinatario.get("cep").replace("-", ""))
+                destinatario.get("cep").replace("-", "")
+            )
             destinatario_cep.send_keys(Keys.TAB)
 
             time.sleep(1)
@@ -98,22 +100,61 @@ class SeleniumCorreiosEnderecadorEncomendasHandler(SeleniumHandler):
             destinatario_nome = self.connector.driver.find_element(
                 By.XPATH, f'//*[@id="desNome_{index + 1}"]'
             )
-            destinatario_nome.send_keys(destinatario.get("nome"))
+            destinatario_nome.send_keys(destinatario.get("nome", ""))
+
+            destinatario_cidade = self.connector.driver.find_element(
+                By.XPATH, f'//*[@id="desCidade_{index + 1}"]'
+            )
+
+            destinatario_endereco = self.connector.driver.find_element(
+                By.XPATH, f'//*[@id="desEndereco_{index + 1}"]'
+            )
+
+            destinatario_bairro = self.connector.driver.find_element(
+                By.XPATH, f'//*[@id="desBairro_{index + 1}"]'
+            )
+
+            destinatario_cidade_normalized = unicodedata.normalize(
+                "NFD", destinatario_cidade.get_attribute("value").strip()
+            )
+
+            cidade_brasilia_normalized = unicodedata.normalize(
+                "NFD", "brasília"
+            )
+
+            if destinatario_cidade_normalized.lower() == cidade_brasilia_normalized.lower():
+                destinatario_endereco.send_keys(
+                    f"{destinatario.get('logradouro', '').strip()} {destinatario.get('numero', '').strip()}"
+                )
+
+                destinatario_bairro.send_keys(
+                    destinatario.get("bairro", "").strip()
+                )
+            else:
+                if not destinatario_endereco.text.strip():
+                    destinatario_endereco.send_keys(
+                        destinatario.get("logradouro", "").strip()
+                    )
+
+                if not destinatario_bairro.get_attribute("value").strip() and destinatario.get("cep")[-3:] == "000":
+                    destinatario_bairro.send_keys("Centro")
 
             destinatario_numero = self.connector.driver.find_element(
                 By.XPATH, f'//*[@id="desNumero_{index + 1}"]'
             )
-            destinatario_numero.send_keys(destinatario.get("numero"))
+            destinatario_numero.send_keys(destinatario.get("numero", ""))
 
             destinatario_complemento = self.connector.driver.find_element(
                 By.XPATH, f'//*[@id="desComplemento_{index + 1}"]'
             )
-            destinatario_complemento.send_keys(destinatario.get("complemento"))
+            destinatario_complemento.send_keys(
+                destinatario.get("complemento", "")
+            )
 
             observacao = self.connector.driver.find_element(
                 By.XPATH, xpath_observacao.get(f"{index + 1}")
             )
-            observacao.send_keys(f"ID {destinatario.get('id')}")
+            observacao.send_keys(f"ID {destinatario.get('id', '')}")
 
             preencha_declaracao_conteudo = self.connector.driver.find_element(
                 By.XPATH, xpath_preencha_declaracao_conteudo.get(
@@ -144,7 +185,7 @@ class SeleniumCorreiosEnderecadorEncomendasHandler(SeleniumHandler):
             dc_destinatario_cpf_cnpj.send_keys(destinatario.get("cpf_cnpj"))
 
             for item_index, item in enumerate(destinatario.get("itens_declaracao_conteudo")):
-                # Max. 6
+                # Max. 5
                 if item_index == 5:
                     break
 
@@ -166,9 +207,7 @@ class SeleniumCorreiosEnderecadorEncomendasHandler(SeleniumHandler):
                 dc_quantidade.send_keys(item_quantidade)
 
                 item_valor = item.get("valor")
-                item_subtotal = str(
-                    int(item_quantidade) * float(item_valor)
-                ).replace(".", ",")
+                item_subtotal = str(float(item_valor)).replace(".", ",")
 
                 dc_valor = self.connector.driver.find_element(
                     By.XPATH, f'//*[@id="val{item_index + 1}"]'
